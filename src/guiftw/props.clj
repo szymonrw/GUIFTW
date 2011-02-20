@@ -1,5 +1,5 @@
-(ns gui-ftw.props
-  (:use (gui-ftw utils)))
+(ns guiftw.props
+  (:use (guiftw utils)))
 
 (defprotocol Property
   (set-on [setter subject] "Set property value represented by this object on subject.")

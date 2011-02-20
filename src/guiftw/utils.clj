@@ -1,4 +1,4 @@
-(ns gui-ftw.utils
+(ns guiftw.utils
   (:require (clojure.contrib [string :as string])))
 
 (defn camelCase-small

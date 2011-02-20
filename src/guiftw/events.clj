@@ -1,4 +1,4 @@
-(ns gui-ftw.events)
+(ns guiftw.events)
 
 ;; po prostu kropka, bez + w nazwie zdarzen
 
