@@ -20,7 +20,7 @@
   (property-name [this] prop)
   (get-value [this] value)
   Object
-  (equals [this other] (= prop (property-name other)))
+  ;;(equals [this other] (= prop (property-name other)))
   (toString [this] (str "Setter: " (name prop) " := " value)))
 
 (defmacro setter [property value]
