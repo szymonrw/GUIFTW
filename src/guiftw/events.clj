@@ -3,17 +3,15 @@
 		    [utils :as utils])
 	    (clojure.contrib [string :as string])))
 
-;;{:text "asdf"
-;; :mouse+mouse-clicked (fn [event object by-id groups])}
-
-(defrecord Event [spec handler listener f]
+(defrecord EventHandler [spec handler listener f]
   props/Property
   (set-on [this subject] (f subject))
   (property-name [this] spec)
   (get-value [this] handler))
 
 (defn event-spec? [spec]
-  (some #{\+} (name spec)))
+  (if (some #{\+} (name spec))
+    :event))
 
 (defn listener&method-names [spec]
   {:pre [(event-spec? spec)]}
@@ -42,7 +40,7 @@
 		   subject#
 		   ~listener-object)))
 	    
-(defmacro event [spec handler]
+(defmacro event-handler [spec handler]
   (let [listener-object `(listener ~spec ~handler)
 	adder-object `(adder ~spec ~listener-object)]
-    `(Event. ~spec ~handler ~listener-object ~adder-object)))
+    `(EventHandler. ~spec ~handler ~listener-object ~adder-object)))

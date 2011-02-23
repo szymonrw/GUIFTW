@@ -14,13 +14,14 @@
   [key]
   (->> key name CamelCase (str ".set") symbol))
 
-(defrecord Setter [prop value f]
+(deftype Setter [prop value f]
   Property
   (set-on [this subject] (f subject))
   (property-name [this] prop)
   (get-value [this] value)
   Object
-  (toString [this] (str "Setter: " (name prop) " -> " value)))
+  (equals [this other] (= prop (property-name other)))
+  (toString [this] (str "Setter: " (name prop) " := " value)))
 
 (defmacro setter [property value]
   `(Setter. ~property (quote ~value)
