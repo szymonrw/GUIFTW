@@ -17,7 +17,23 @@
 		      (concat properties events))))
   CascadeSheet
   (cascade [this other]
-	   (Style. properties events)))
+	   (let [{other-props :props, other-events :events}
+		 (props/get-value other),
+		 new-props
+		 (reverse
+		  (loop [keys #{}
+			 source (reverse (concat properties other-props))
+			 output ()]
+		    (if (first source)
+		      (let [item (first source)
+			    prop (props/property-name item)]
+			(if-not (keys prop)
+			  (recur (conj keys prop)
+				 (rest source)
+				 (conj output item))
+			  (recur keys (rest source) output)))
+		      output)))]
+	   (Style. new-props (concat events other-events)))))
 
 (defmacro style [prop-value-pairs]
   (let [{properties nil, events :event}
