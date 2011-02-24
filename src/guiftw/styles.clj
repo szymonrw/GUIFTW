@@ -1,20 +1,18 @@
 (ns guiftw.styles
   (:require (guiftw [props :as props]
-		    [events :as events])))
+		    [events :as events]
+		    [special :as special])))
 
 (defprotocol CascadeSheet
   (cascade [original over]))
 
-(defrecord Style [properties events]
+(defrecord Style [props events specials]
   props/Property
-  (property-name [this]
-		 {:props (map props/property-name properties)
-		  :events (map props/property-name events)})
-  (get-value [this] {:props properties
-		     :events events})
+  (property-name [this] (zipmap (keys this) (map props/property-name (vals this))))
+  (get-value [this] this)
   (set-on [this subject]
 	  (dorun (map #(props/set-on % subject)
-		      (concat properties events))))
+		      (concat props events))))
   CascadeSheet
   (cascade [this other]
 	   (let [{other-props :props, other-events :events}
@@ -22,7 +20,7 @@
 		 new-props
 		 (reverse
 		  (loop [keys #{}
-			 source (reverse (concat properties other-props))
+			 source (reverse (concat props other-props))
 			 output ()]
 		    (if (first source)
 		      (let [item (first source)
@@ -33,13 +31,16 @@
 				 (conj output item))
 			  (recur keys (rest source) output)))
 		      output)))]
-	   (Style. new-props (concat events other-events)))))
+	   (Style. new-props (concat events other-events) nil))))
 
 (defmacro style [prop-value-pairs]
-  (let [{properties nil, events :event}
-	(group-by #(events/event-spec? (first %))
+  (let [{properties nil, events :event, specials :special}
+	(group-by (fn [[key]] (reduce #(or (%1 key) (%2 key))
+				      [events/event-spec?
+				       special/special-spec?]))
 		  (partition 2 prop-value-pairs))]
     `(Style. (list ~@(map (fn [p] `(props/setter ~@p))
 			  properties))
 	     (list ~@(map (fn [p] `(events/event-handler ~@p))
-			  events)))))
+			  events))
+	     ~(into {} (map (fn [[p v]] `[~(keyword p) '~v]) specials)))))

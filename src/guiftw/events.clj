@@ -75,4 +75,4 @@
   [spec handler]
   (let [listener-object `(listener ~spec ~handler)
 	adder-object `(adder ~spec ~listener-object)]
-    `(EventHandler. ~spec ~handler ~listener-object ~adder-object)))
+    `(EventHandler. '~spec ~handler ~listener-object ~adder-object)))
