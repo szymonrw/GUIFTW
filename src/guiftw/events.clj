@@ -16,9 +16,10 @@
 (defn listener&method-names [spec]
   {:pre [(event-spec? spec)]}
 
-  (let [[listener method] (->> spec name (reduce str) (string/split #"\+"))]
+  (let [[listener method method2] (->> spec name (reduce str) (string/split #"\+"))]
     [(-> listener utils/CamelCase (str "Listener"))
-     (-> method utils/camelCase-small)]))
+     (-> (if method2 (str listener "-" method2) method)
+	 utils/camelCase-small)]))
 
 (defmacro listener [spec handler]
   (let [[listener-name method] (listener&method-names spec)
