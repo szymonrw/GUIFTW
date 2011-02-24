@@ -50,10 +50,12 @@
 	    
 	    ;; Implement empty methods.
 	    ;; Needed because reify would make them abstract.
-	    ~@(for [m (->> listener-class resolve .getMethods
-			   (map #(.getName %))
-			   (filter #(not= % method))
-			   (map symbol))]
+	    ~@(for [m (try (->> listener-class resolve .getMethods
+				(map #(.getName %))
+				(filter #(not= % method))
+				(map symbol))
+			   (catch NullPointerException e
+			     (throw (ClassNotFoundException. listener-name e))))]
 		(list m ['_ '_] nil)))))
 
 (defmacro adder
