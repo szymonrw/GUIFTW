@@ -38,6 +38,9 @@
 		   {:*cons (or (-> specials :*cons)
 			       (-> other props/get-value :specials :*cons))}))))
 
+(defn style-spec? [x]
+  (sequential? x))
+
 (defmacro style [prop-value-pairs]
   (let [{properties nil, events :event, specials :special}
 	(group-by (fn [[key]] (reduce #(or (%1 key) (%2 key))
