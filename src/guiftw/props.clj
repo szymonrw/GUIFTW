@@ -24,7 +24,7 @@
   (toString [this] (str "Setter: " (name prop) " := " value)))
 
 (defmacro setter [property value]
-  `(Setter. '~property (quote ~value)
+  `(Setter. '~property '~value
 	    ~(if (-> value meta :tag (= 'unroll))
 	       `(fn [subject#]
 		  (~(setter-name property) subject# ~@value))
