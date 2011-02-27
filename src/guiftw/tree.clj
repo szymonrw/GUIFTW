@@ -23,10 +23,16 @@
 	children-guis (for [x children] `(gui ~x))]
     `(fn [& style-sheets#]
        (let [style# ~props
+	     specials# (-> style# props/get-value :specials)
+	     final-style# (if-let [reduced# (styles/reduce-stylesheet
+					     (cons (:*id specials#) (:*groups specials#))
+					     (apply concat style-sheets#))]
+			    (styles/cascade reduced# style#)
+			    style#)
 	     obj# (apply (constructor ~class)
- 			 (-> style# props/get-value :specials :*cons))
-	     children-objs# (list ~@(map list children-guis))] ;; TODO: add passing style-sheets to children
-	 (props/set-on style# obj#)
+			 (-> final-style# props/get-value :specials :*cons))
+	     children-objs# (map #(apply % style-sheets#) (list ~@children-guis))]
+	 (props/set-on final-style# obj#)
 	 (doseq [x# children-objs#]
 	   (.add obj# x#))
 	 obj#))))

@@ -69,4 +69,7 @@
 	     `(style ~ids ~style))))
 
 (defn reduce-stylesheet [ids sheet]
-  (reduce cascade (filter #(applies-to? % ids) sheet)))
+  (if (seq ids)
+    (let [to-apply (filter #(applies-to? % ids) sheet)]
+      (if (seq to-apply)
+	(reduce cascade to-apply)))))
