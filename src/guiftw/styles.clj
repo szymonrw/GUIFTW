@@ -5,9 +5,9 @@
 
 (defprotocol CascadeSheet
   (cascade [original over])
-  (applies-to? [sheet id groups]))
+  (applies-to? [sheet applicants]))
 
-(defrecord Style [props events specials id groups]
+(defrecord Style [props events specials applicants]
   props/Property
   (property-name [this] (zipmap (keys this) (map props/property-name (vals this))))
   (get-value [this] this)
@@ -42,16 +42,16 @@
 		    :*groups (:*groups other-specials)
 		    :*cons (or (:*cons specials)
 			       (:*cons other-specials))}
-		   nil #{})))
-  (applies-to? [this obj-id obj-groups]
-	       (or (= id obj-id) (some groups obj-groups))))
+		   #{}))) ; Applicants are rather meta-information, so are not inherited.
+  (applies-to? [this symbols]
+	       (some applicants symbols)))
 
 (defn style-spec? [x]
   (sequential? x))
 
 (defmacro style
-  ([prop-value-pairs] `(style ~prop-value-pairs nil []))
-  ([prop-value-pairs id groups]
+  ([prop-value-pairs] `(style [] ~prop-value-pairs))
+  ([applicants prop-value-pairs]
      (let [{properties nil, events :event, specials :special}
 	   (group-by (fn [[key]] (reduce #(or (%1 key) (%2 key))
 					 [events/event-spec?
@@ -62,5 +62,11 @@
 		(list ~@(map (fn [p] `(events/event-handler ~@p))
 			     events))
 		~(into {} (map (fn [[p v]] `[~(keyword p) '~v]) specials))
-		'~id ~(set groups)))))
+		'~(set applicants)))))
 
+(defmacro stylesheet [& ids-style-pairs]
+  `(list ~@(for [[ids style] (partition 2 ids-style-pairs)]
+	     `(style ~ids ~style))))
+
+(defn reduce-stylesheet [ids sheet]
+  (reduce cascade (filter #(applies-to? % ids) sheet)))
