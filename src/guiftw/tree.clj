@@ -12,16 +12,23 @@
 	      (distinct (map #(-> % .getParameterTypes count)
 			     (.getConstructors (resolve class)))))))
 
-(defmacro gui [struct]
+(defn swing-create [ctor parent style]
+  (let [obj (apply ctor (-> style props/get-value :specials :*cons))]
+    (if parent (.add parent obj))
+    obj))
+
+(defn swt-create [ctor parent style]
+  (apply ctor parent (-> style props/get-value :specials :*cons)))
+
+(defmacro gui [creator struct]
   (let [class (first struct)
-	cons `(constructor ~class)
 	has-props (styles/style-spec? (second struct))
 	props `(styles/style ~(if has-props (second struct) []))
 	children (if has-props
 		   (rest (rest struct))
 		   (rest struct))
-	children-guis (for [x children] `(gui ~x))]
-    `(fn [& style-sheets#]
+	children-guis (for [x children] `(gui ~creator ~x))]
+    `(fn [parent# & style-sheets#]
        (let [style# ~props
 	     specials# (-> style# props/get-value :specials)
 	     final-style# (if-let [reduced# (styles/reduce-stylesheet
@@ -29,10 +36,12 @@
 					     (apply concat style-sheets#))]
 			    (styles/cascade reduced# style#)
 			    style#)
-	     obj# (apply (constructor ~class)
-			 (-> final-style# props/get-value :specials :*cons))
-	     children-objs# (map #(apply % style-sheets#) (list ~@children-guis))]
+	     obj# (~creator (constructor ~class) parent# final-style#)]
+	     ;;	     (apply (constructor ~class)
+	     ;;		    (-> final-style# props/get-value :specials :*cons))
+	     ;;children-objs# (doall (map #(apply % obj# style-sheets#) (list ~@children-guis)))]
+	 (dorun (map #(apply % obj# style-sheets#) (list ~@children-guis)))
 	 (props/set-on final-style# obj#)
-	 (doseq [x# children-objs#]
-	   (.add obj# x#))
+	 ;;(doseq [x# children-objs#]
+	 ;;  (.add obj# x#))
 	 obj#))))
