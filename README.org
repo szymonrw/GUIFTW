@@ -2,8 +2,10 @@
 
   GUI FTW! is a *declarative* GUI library.
 
-  Main goals:
+  Features:
   - Declare your GUI structure using Clojure syntax.
   - Style it in a CSS fashion.
   - Put event handlers in stylesheets.
+
+  Planned features:
   - Bind data from widgets to Clojure's agents, atoms, vars, etc.
