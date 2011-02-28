@@ -61,7 +61,7 @@
 			     properties))
 		(list ~@(map (fn [p] `(events/event-handler ~@p))
 			     events))
-		~(into {} (map (fn [[p v]] `[~(keyword p) '~v]) specials))
+		~(into {} (map (fn [[p v]] `[~(keyword p) ~(if (sequential? v) `(list ~@v) v)]) specials))
 		'~(set applicants)))))
 
 (defmacro stylesheet [& ids-style-pairs]

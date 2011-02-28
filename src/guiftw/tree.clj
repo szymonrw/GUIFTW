@@ -12,14 +12,6 @@
 	      (distinct (map #(-> % .getParameterTypes count)
 			     (.getConstructors (resolve class)))))))
 
-(defn swing-create [ctor parent style]
-  (let [obj (apply ctor (-> style props/get-value :specials :*cons))]
-    (if parent (.add parent obj))
-    obj))
-
-(defn swt-create [ctor parent style]
-  (apply ctor parent (-> style props/get-value :specials :*cons)))
-
 (defmacro gui [creator struct]
   (let [class (first struct)
 	has-props (styles/style-spec? (second struct))
