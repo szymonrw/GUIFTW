@@ -37,11 +37,6 @@
 			    (styles/cascade reduced# style#)
 			    style#)
 	     obj# (~creator (constructor ~class) parent# final-style#)]
-	     ;;	     (apply (constructor ~class)
-	     ;;		    (-> final-style# props/get-value :specials :*cons))
-	     ;;children-objs# (doall (map #(apply % obj# style-sheets#) (list ~@children-guis)))]
 	 (dorun (map #(apply % obj# style-sheets#) (list ~@children-guis)))
 	 (props/set-on final-style# obj#)
-	 ;;(doseq [x# children-objs#]
-	 ;;  (.add obj# x#))
 	 obj#))))
