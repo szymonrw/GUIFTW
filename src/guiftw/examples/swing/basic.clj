@@ -14,7 +14,7 @@
 
   ;; Import all Swing stuff used in this example.
   (:import (javax.swing JOptionPane JFrame JButton)
-	   (java.awt.event MouseListener)))
+	   java.awt.event.MouseListener))
 
 ;; Let's define our GUI structure.
 (def gui
