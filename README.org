@@ -25,10 +25,10 @@
 
   1. *Do I have to know Swing or SWT to use GUI FTW?*
 
-     Yes. GUI FTW is only responsible for generating redundant code
-     you would write without it and providing more *declarative*
-     approach to creating GUIs with Swing or SWT. Still, you have to
-     know the toolkit you are using (classes names, properties, event
+     Yes. GUI FTW is responsible for generating redundant code you
+     would write without it and providing more *declarative* approach
+     to creating GUIs with Swing or SWT. Still, you have to know the
+     toolkit you are using (classes names, properties, event
      listeners, etc.).
 
   2. *Can I run the same code against SWT and Swing?*
