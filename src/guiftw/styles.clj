@@ -1,15 +1,26 @@
 (ns guiftw.styles
+  "Styles handling. Look in style macro doc for syntax."
   (:require (guiftw [props :as props]
 		    [events :as events]
 		    [special :as special])))
 
 (defprotocol CascadeSheet
-  (cascade [original over])
-  (applies-to? [sheet applicants]))
+  "CascadeSheet protocol. Defines sheet that can be cascaded (merged)
+  with other sheet. Includes cascade and applies-to? methods."
+  (cascade [original over] "Cascade (merge) two sheets.")
+  (applies-to? [sheet applicants] "Returns true if sheet is destined
+  to apply on given applicants (sequence of identifiers)."))
 
+
+;; Implementation of Property and CascadeSheet protocols. Fields:
+;; props (seq of guiftw.props/Setter objects), events (seq of
+;; guiftw.events/EventHandler objects), specials (map of special
+;; properties such as *cons, *ids and *groups (last two don't apply to
+;; non-private style sheets), applicants (set of identifiers that are 
 (defrecord Style [props events specials applicants]
   props/Property
-  (property-name [this] (zipmap (keys this) (map props/property-name (vals this))))
+  (property-name [this] (zipmap (keys this)
+				(map props/property-name (vals this))))
   (get-value [this] this)
   (set-on [this subject]
 	  (dorun (map #(props/set-on % subject)
@@ -35,14 +46,15 @@
 	   (Style. new-props
 		   (concat events other-events)
 		   {;; Inherit id and groups only from the other one.
-		    ;; Because when reducing styles, the last one will be always
-		    ;; private object's style, only id and groups stored
-		    ;; in there will be in final style.
+		    ;; Because when reducing styles, the last one will
+		    ;; be always private object's style, only id and
+		    ;; groups stored in there will be in final style.
 		    :*id (:*id other-specials)
 		    :*groups (:*groups other-specials)
 		    :*cons (or (:*cons specials)
 			       (:*cons other-specials))}
-		   #{}))) ; Applicants are rather meta-information, so are not inherited.
+		   #{}))) ; Applicants are rather meta-information, so
+			  ; they're not inherited.
   (applies-to? [this symbols]
 	       (some applicants symbols)))
 

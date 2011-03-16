@@ -4,8 +4,9 @@
 		    [props :as props])))
 
 
-
-(defn swing-create [ctor parent style]
+(defn swing-create
+  ""
+  [ctor parent style]
   (let [obj (apply ctor (-> style props/get-value :specials :*cons))]
     (if parent (.add parent obj))
     obj))
