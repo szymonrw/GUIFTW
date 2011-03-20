@@ -7,8 +7,11 @@
 (defn swing-create
   ""
   [ctor parent style]
-  (let [obj (apply ctor (-> style props/get-value :specials :*cons))]
-    (if parent (.add parent obj))
+  (let [specials (-> style props/get-value :specials)
+	obj (apply ctor (:*cons specials))
+	layout-data (:*lay specials)]
+    (cond (and parent layout-data) (.add parent obj layout-data)
+	  parent (.add parent obj))
     obj))
 
 (defmacro swing [struct]

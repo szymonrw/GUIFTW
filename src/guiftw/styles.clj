@@ -51,8 +51,10 @@
 		    ;; groups stored in there will be in final style.
 		    :*id (:*id other-specials)
 		    :*groups (:*groups other-specials)
-		    :*cons (or (:*cons specials)
-			       (:*cons other-specials))}
+		    :*cons (or (:*cons other-specials)
+			       (:*cons specials))
+		    :*lay (or (:*lay other-specials)
+			      (:*lay specials))}
 		   #{}))) ; Applicants are rather meta-information, so
 			  ; they're not inherited.
   (applies-to? [this symbols]

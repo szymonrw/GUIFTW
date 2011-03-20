@@ -58,6 +58,6 @@
 			    (styles/cascade reduced# style#)
 			    style#)
 	     obj# (~creator (constructor ~class) parent# final-style#)]
-	 (dorun (map #(apply % obj# style-sheets#) (list ~@children-guis)))
 	 (props/set-on final-style# obj#)
+	 (dorun (map #(apply % obj# style-sheets#) (list ~@children-guis)))
 	 obj#))))
