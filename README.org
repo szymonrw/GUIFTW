@@ -16,6 +16,12 @@
   It works. It's in alpha stage, that means some things will change
   and it's a little rough on the edges.
 
+  Latest snapshot is available in [[https://github.com/santamon/GUIFTW/archives/master][Downloads]] section and in Lein/Cake
+  through [[http://clojars.org/guiftw][Clojars]]. Just add to =:dependecies=:
+#+BEGIN_SRC clojure
+[guiftw "0.1.0-SNAPSHOT"]
+#+END_SRC
+
   Instead of wiki, I've written two analogical examples for Swing and
   SWT with lots of comments. They're [[https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/basic.clj][here]] and [[https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swt/basic.clj][here]]. I recommend
   reading Swing example first and then SWT one as the latter contains

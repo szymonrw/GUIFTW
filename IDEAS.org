@@ -2,3 +2,7 @@
 
   :layout.size.width 300
   -> (.. obj getLayout getSize (setWidth 300))
+
+* Styling by class
+
+  Using class names in styles to style, say, all JButton's.
