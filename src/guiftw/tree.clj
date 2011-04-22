@@ -47,7 +47,7 @@
   constructors for class at in this node), parent object (nil is
   possible) and style for object that will be created.
 
-  Returns function that takes at least one argument: parent for object
+  Returns function that takes zero or more arguments: parent for object
   at tree root. After parent you can pass any amount of style sheets
   that will be applied to created objects. Created function will
   return root object.
