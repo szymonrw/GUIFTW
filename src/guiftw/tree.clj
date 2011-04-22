@@ -24,18 +24,34 @@
 	      (distinct (map #(-> % .getParameterTypes count)
 			     (.getConstructors (resolve class)))))))
 
+(defn merge-guis [old new]
+  {:ids (merge (:ids old) (:ids new))
+   :groups (merge-with concat (:groups old) (:groups new))
+   :root (or (:root old) (:root new))})
+
 (defn gui-creator [instantiator constructor style children]
-  (fn [& [parent & style-sheets]]
-    (let [specials (-> style props/get-value :specials)
+  (fn [& [gui & stylesheets]]
+    {:pre [(or (nil? gui)
+	       (instance? clojure.lang.IDeref gui))]}
+    (let [gui (or gui (atom {}))
+	  specials (-> style props/get-value :specials)
 	  final-style (if-let [reduced (styles/reduce-stylesheet
 					(cons (:*id specials) (:*groups specials))
-					(apply concat style-sheets))]
+					(apply concat stylesheets))]
 			(styles/cascade reduced style)
 			style)
+	  parent (->> @gui :root)
 	  obj (instantiator constructor parent final-style)]
-      (props/set-on final-style nil obj)
-      (dorun (map #(apply % obj style-sheets) children))
-      obj)))
+      (props/set-on final-style gui obj)
+      (let [id (if-let [id (:*id specials)]
+		 {:ids {id obj}})
+	    groups (if-let [groups (:*groups specials)]
+		     {:groups (zipmap groups (repeat [obj]))})
+	    root {:root obj}
+	    gui-news (merge id groups root)]
+	(swap! gui merge-guis gui-news)
+	(dorun (map #(apply % gui stylesheets) children)))
+      gui)))
 
 (defmacro parse-gui
   "Parses GUI tree (struct) at compile time. Parsing is as abstract as
