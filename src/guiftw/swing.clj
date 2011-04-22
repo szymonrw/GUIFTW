@@ -15,7 +15,7 @@
     obj))
 
 (defmacro swing [struct]
-  `(tree/gui swing-create ~struct))
+  `(tree/parse-gui swing-create ~struct))
 
 
 (defn set-laf

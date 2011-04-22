@@ -24,12 +24,25 @@
 	      (distinct (map #(-> % .getParameterTypes count)
 			     (.getConstructors (resolve class)))))))
 
-(defmacro gui
+(defn gui-creator [instantiator constructor style children]
+  (fn [& [parent & style-sheets]]
+    (let [specials (-> style props/get-value :specials)
+	  final-style (if-let [reduced (styles/reduce-stylesheet
+					(cons (:*id specials) (:*groups specials))
+					(apply concat style-sheets))]
+			(styles/cascade reduced style)
+			style)
+	  obj (instantiator constructor parent final-style)]
+      (props/set-on final-style obj)
+      (dorun (map #(apply % obj style-sheets) children))
+      obj)))
+
+(defmacro parse-gui
   "Parses GUI tree (struct) at compile time. Parsing is as abstract as
-  possible, given creator function is concrete implementation of
+  possible, given instantiator function is concrete implementation of
   creating object and adding it as an child to it's parent.
 
-  Creator function takes three arguments: a constructor
+  Instantiator function takes three arguments: a constructor
   function (generated multi-variant fn that represents all possible
   constructors for class at in this node), parent object (nil is
   possible) and style for object that will be created.
@@ -41,23 +54,12 @@
 
   Use any of concrete implementations like guiftw.swing/swing or
   guiftw.swt/swt instead of this."
-  [creator struct]
-  (let [class (first struct)
+  [instantiator struct]
+  (let [constructor `(constructor ~(first struct))
 	has-props (styles/style-spec? (second struct))
 	props `(styles/style ~(if has-props (second struct) []))
 	children (if has-props
 		   (rest (rest struct))
 		   (rest struct))
-	children-guis (for [x children] `(gui ~creator ~x))]
-    `(fn [parent# & style-sheets#]
-       (let [style# ~props
-	     specials# (-> style# props/get-value :specials)
-	     final-style# (if-let [reduced# (styles/reduce-stylesheet
-					     (cons (:*id specials#) (:*groups specials#))
-					     (apply concat style-sheets#))]
-			    (styles/cascade reduced# style#)
-			    style#)
-	     obj# (~creator (constructor ~class) parent# final-style#)]
-	 (props/set-on final-style# obj#)
-	 (dorun (map #(apply % obj# style-sheets#) (list ~@children-guis)))
-	 obj#))))
+	children-guis (for [x children] `(parse-gui ~instantiator ~x))]
+    `(gui-creator ~instantiator ~constructor ~props (list ~@children-guis))))

@@ -24,7 +24,7 @@
   (apply ctor parent (-> style props/get-value :specials :*cons)))
 
 (defmacro swt [struct]
-  `(tree/gui swt-create ~struct))
+  `(tree/parse-gui swt-create ~struct))
 
 (defn ok?
   "Check if w is not null and not disposed."
