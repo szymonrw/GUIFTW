@@ -40,7 +40,7 @@
 			     ;; different method from different
 			     ;; Listener.
 			     :selection+widget-selected
-			     (fn [event]
+			     (fn [gui event]
 			       ;; message is convenient function in
 			       ;; guiftw.swt
 			       (message "Masssage"

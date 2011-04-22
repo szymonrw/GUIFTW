@@ -84,7 +84,7 @@
 
 		       ;; Event will be handled by function that takes
 		       ;; one argument, the event.
-		       (fn [event]
+		       (fn [gui event]
 			 (JOptionPane/showMessageDialog
 			  nil (reduce str "Big Brother is watching you!\nEvent: "
 				      (take 50 (str event)))))]))

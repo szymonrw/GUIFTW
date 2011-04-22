@@ -2,7 +2,7 @@
   (:use (guiftw utils)))
 
 (defprotocol Property
-  (set-on [setter subject] "Set property value represented by this object on subject.")
+  (set-on [setter gui subject] "Set property value represented by this object on subject.")
   (property-name [setter] "Return property name.")
   (get-value [setter] "Gets value of property."))
 
@@ -16,7 +16,7 @@
 
 (deftype Setter [prop value f]
   Property
-  (set-on [this subject] (f subject))
+  (set-on [this _ subject] (f subject))
   (property-name [this] prop)
   (get-value [this] value)
   Object

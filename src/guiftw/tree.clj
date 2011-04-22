@@ -33,7 +33,7 @@
 			(styles/cascade reduced style)
 			style)
 	  obj (instantiator constructor parent final-style)]
-      (props/set-on final-style obj)
+      (props/set-on final-style nil obj)
       (dorun (map #(apply % obj style-sheets) children))
       obj)))
 

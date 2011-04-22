@@ -7,7 +7,7 @@
 
 (defrecord EventHandler [spec handler listener f]
   props/Property
-  (set-on [this subject] (f subject))
+  (set-on [this gui subject] (f gui subject))
   (property-name [this] spec)
   (get-value [this] handler))
 
@@ -45,27 +45,28 @@
   [spec handler]
   (let [[listener-name method] (listener&method-names spec)
 	listener-class (symbol listener-name)]
-    `(reify ~listener-class
-	    (~(symbol method) [_# event#] (~handler event#))
-	    
-	    ;; Implement empty methods.
-	    ;; Needed because reify would make them abstract.
-	    ~@(for [m (try (->> listener-class resolve .getMethods
-				(map #(.getName %))
-				(filter #(not= % method))
-				(map symbol))
-			   (catch NullPointerException e
-			     (throw (ClassNotFoundException. listener-name e))))]
-		(list m ['_ '_] nil)))))
+    `(fn [gui#]
+       (reify ~listener-class
+	      (~(symbol method) [_# event#] (~handler gui# event#))
+	      
+	      ;; Implement empty methods.
+	      ;; Needed because reify would make them abstract.
+	      ~@(for [m (try (->> listener-class resolve .getMethods
+				  (map #(.getName %))
+				  (filter #(not= % method))
+				  (map symbol))
+			     (catch NullPointerException e
+			       (throw (ClassNotFoundException. listener-name e))))]
+		  (list m ['_ '_] nil))))))
 
 (defmacro adder
   "Generates a function that will
-  .add<interface name from spec>Listener(listener-object)."
-  [spec listener-object]
-  `(fn [subject#] (~(->> spec listener&method-names
+  .add<interface name from spec>Listener(listener-creator)."
+  [spec listener-creator]
+  `(fn [gui# subject#] (~(->> spec listener&method-names
 			 first (str ".add") symbol)
 		   subject#
-		   ~listener-object)))
+		   (~listener-creator gui#))))
 	    
 (defmacro event-handler
   "Macro that returns new EventHandler. Event specified by spec will
@@ -73,6 +74,6 @@
   listener&method-names macro documentation. Handler is a function of
   one argument (event)."
   [spec handler]
-  (let [listener-object `(listener ~spec ~handler)
-	adder-object `(adder ~spec ~listener-object)]
-    `(EventHandler. '~spec ~handler ~listener-object ~adder-object)))
+  (let [listener-creator `(listener ~spec ~handler)
+	adder-object `(adder ~spec ~listener-creator)]
+    `(EventHandler. '~spec ~handler ~listener-creator ~adder-object)))

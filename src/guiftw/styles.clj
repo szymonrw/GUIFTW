@@ -22,8 +22,8 @@
   (property-name [this] (zipmap (keys this)
 				(map props/property-name (vals this))))
   (get-value [this] this)
-  (set-on [this subject]
-	  (dorun (map #(props/set-on % subject)
+  (set-on [this gui subject]
+	  (dorun (map #(props/set-on % gui subject)
 		      (concat props events))))
   CascadeSheet
   (cascade [this other]
