@@ -72,7 +72,7 @@
   "Macro that returns new EventHandler. Event specified by spec will
   be handled by handler function. Spec syntax is documented in
   listener&method-names macro documentation. Handler is a function of
-  one argument (event)."
+  two arguments (gui structure and event)."
   [spec handler]
   (let [listener-creator `(listener ~spec ~handler)
 	adder-object `(adder ~spec ~listener-creator)]
