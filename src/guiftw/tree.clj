@@ -13,6 +13,8 @@
   (:require (guiftw [styles :as styles]
 		    [props :as props])))
 
+;; TODO: describe gui state structure.
+
 (defmacro constructor
   "Returns multi-variant function that reflects all constructors for
   given class."
@@ -24,12 +26,28 @@
 	      (distinct (map #(-> % .getParameterTypes count)
 			     (.getConstructors (resolve class)))))))
 
-(defn merge-guis [old new]
-  {:ids (merge (:ids old) (:ids new))
-   :groups (merge-with concat (:groups old) (:groups new))
-   :root (or (:root old) (:root new))})
+(defn merge-guis
+  "Merges two GUI states (maps). Keys :ids, :groups and :root are
+  treated differently: :ids are merged, all values inside :groups are
+  concatenated and :root is preserved from old map.
 
-(defn gui-creator [instantiator constructor style children]
+  All other keys are merged like in merge function."
+  [old new]
+  (apply merge
+	 {:ids (merge (:ids old) (:ids new))
+	  :groups (merge-with concat (:groups old) (:groups new))
+	  :root (or (:root old) (:root new))}
+	 (map #(dissoc % :ids :groups :root) [old new]))) ;; merge rest of map traditionally
+
+(defn gui-creator
+  "Logic behind creating GUI. It's what parse-gui will return and it's
+  not intended to be used outside of it.
+
+  Instantiator have to be 3-arg fn that will construct object using
+  constructor and add it to a parent using evetually properties of an
+  object (especially *cons -- constructor parameters -- and *lay --
+  layout parameters)."
+  [instantiator constructor style children]
   (fn [& [gui & stylesheets]]
     {:pre [(or (nil? gui)
 	       (instance? clojure.lang.IDeref gui))]}
@@ -63,10 +81,10 @@
   constructors for class at in this node), parent object (nil is
   possible) and style for object that will be created.
 
-  Returns function that takes zero or more arguments: parent for object
-  at tree root. After parent you can pass any amount of style sheets
-  that will be applied to created objects. Created function will
-  return root object.
+  Returns function that takes zero or more arguments: gui state and
+  any amount of style sheets that will be applied to created
+  objects. Created function will return modified gui state or newly
+  created if nil.
 
   Use any of concrete implementations like guiftw.swing/swing or
   guiftw.swt/swt instead of this."
