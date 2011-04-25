@@ -1,5 +1,5 @@
 (ns guiftw.styles
-  "Styles handling. Look in style macro doc for syntax."
+  "Styles handling. Look in stylesheet macro doc for syntax."
   (:require (guiftw [props :as props]
 		    [events :as events]
 		    [special :as special])))
@@ -16,7 +16,7 @@
 ;; props (seq of guiftw.props/Setter objects), events (seq of
 ;; guiftw.events/EventHandler objects), specials (map of special
 ;; properties such as *cons, *ids and *groups (last two don't apply to
-;; non-private style sheets), applicants (set of identifiers that are 
+;; non-private style sheets), applicants (set of identifiers that are
 (defrecord Style [props events specials applicants]
   props/Property
   (property-name [this] (zipmap (keys this)
@@ -78,7 +78,42 @@
 		~(into {} (map (fn [[p v]] `[~(keyword p) ~(if (sequential? v) `(list ~@v) v)]) specials))
 		'~(set applicants)))))
 
-(defmacro stylesheet [& ids-style-pairs]
+(defmacro stylesheet
+  "Takes any amount of pairs of list of identifiers and list of
+  properties. List of identifiers can contain unique object ids (as
+  in :*id) and group ids (as in :*groups). Following list of
+  properties will be applied to objects that matches these
+  indetifiers. Returns list of Style objects that corresponds to these
+  pairs of lists.
+
+  List of properties contain pairs of property name and
+  value. Property names maps directly to JavaBeans property
+  names (setters). For example :text \"ASDF\" will map to
+  setText(\"ASDF\"). Properties will applied on objects in order
+  they're given. Property names can be of String, keyword or symbol
+  type but keyword type is recommended.
+
+  Style sheets can contain event handlers where property name is
+  <listener-name-without-\"Listener\">+<method-name> of Listener that
+  corresonds to the event you wan to handle. Example:
+  mouse+mouse-clicked will correspond to MouseListener, method
+  mouseClicked. Also short-hand for double prefix is ++. You can write
+  mouse++clicked and it'll translate to same thing. Value for event
+  handlers is an function that takes two arguments: GUI state (an atom
+  as described in guiftw.tree doc) and event object.
+
+  Toolkits (such as Swing) can impose some additional properties (not
+  translated to setters but used in other places). All extra
+  properties begin with * (asterisk).
+
+  lispy-notation is translated to CamelCase, for
+  example :default-close-operation -> setDefaultCloseOperation.
+  CamelCase is left as-is.
+
+  For setters that takes more than one argument you can tag value with
+  ^unroll. Then :size ^unroll (300 200) will translate to setSize(300,
+  200) instead of setSize((300 200))."
+  [& ids-style-pairs]
   `(list ~@(for [[ids style] (partition 2 ids-style-pairs)]
 	     `(style ~ids ~style))))
 

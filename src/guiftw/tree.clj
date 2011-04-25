@@ -1,5 +1,5 @@
 (ns guiftw.tree
-  "Core of GUI tree stucture parsing.
+  "Core of GUI tree stucture parsing. The parse-gui macro is heart of it.
 
   Syntax for GUI structure:
 
@@ -8,12 +8,28 @@
    [class3 [prop4 value4, ...] ...]
    ...]
 
-  Each node begins with class name followed by private style sheet
-  and any number of children."
+  Each node begins with class name followed by private style sheet and
+  any number of children. Syntax for style sheets is described in
+  guiftw.styles doc. Uses extra properties:
+
+  *id -- unique identifier of the object,
+  *groups -- seq of groups identifiers where this object belongs.
+
+  These properties are ignored when used in stylesheets created by
+  guiftw.styles/stylesheet macro.
+
+  Various functions return so-called GUI state wich is a map wrapped
+  in atom. This map contains predefined keys:
+
+  :ids -- a map with objects indentified by their :*id property given
+          in style sheet.
+  :groups -- a map with lists of objects grouped by :*group property
+             given in the style sheet,
+  :root -- top-level object in GUI tree (usually window).
+
+  User can add any custom key/values at will. They will be preserved."
   (:require (guiftw [styles :as styles]
 		    [props :as props])))
-
-;; TODO: describe gui state structure.
 
 (defmacro constructor
   "Returns multi-variant function that reflects all constructors for
@@ -81,10 +97,12 @@
   constructors for class at in this node), parent object (nil is
   possible) and style for object that will be created.
 
-  Returns function that takes zero or more arguments: gui state and
+  Returns a function that takes zero or more arguments: gui state and
   any amount of style sheets that will be applied to created
   objects. Created function will return modified gui state or newly
-  created if nil.
+  created if gui arg is nil. If you pass a map wrapped in an atom with
+  some custom keys (:ids, :groups and :root are reserved) they will be
+  preserved so you can put there your custom application state.
 
   Use any of concrete implementations like guiftw.swing/swing or
   guiftw.swt/swt instead of this."

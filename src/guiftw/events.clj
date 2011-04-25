@@ -29,7 +29,9 @@
   Method name is prefixed with listener name. Examples:
     1) :mouse+mouse-clicked -> MouseListener, mouseClicked
     2) :mouse++clicked -> same as above.
-  Also, lispy-notation is translated to CamelCase."
+  Also, lispy-notation is translated to CamelCase.
+
+  Note: you have to import interfaces you want to implement."
   [spec]
   {:pre [(event-spec? spec)]}
 
@@ -48,7 +50,7 @@
     `(fn [gui#]
        (reify ~listener-class
 	      (~(symbol method) [_# event#] (~handler gui# event#))
-	      
+
 	      ;; Implement empty methods.
 	      ;; Needed because reify would make them abstract.
 	      ~@(for [m (try (->> listener-class resolve .getMethods
@@ -67,7 +69,7 @@
 			 first (str ".add") symbol)
 		   subject#
 		   (~listener-creator gui#))))
-	    
+
 (defmacro event-handler
   "Macro that returns new EventHandler. Event specified by spec will
   be handled by handler function. Spec syntax is documented in
