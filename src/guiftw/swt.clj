@@ -1,24 +1,9 @@
 (ns guiftw.swt
   "Functions for Happy SWT User"
   (:require (guiftw [tree :as tree]
-		    [props :as props])))
-
-(defn import-swt
-  "Convenience function to import all needed SWT classes in project"
-  [] ;; TODO: make sure _all_ widgets and listeners are imported
-  (import [org.eclipse.swt SWT]
-	  [org.eclipse.swt.widgets
-	   Shell Menu MenuItem MessageBox
-	   FileDialog ExpandBar ExpandItem
-	   Composite Label Scale Canvas Display
-	   Button ToolBar ToolItem Text Table TableColumn TableItem]
-	  [org.eclipse.swt.custom ScrolledComposite TableEditor]
-	  [org.eclipse.swt.graphics Color GC ImageData Image PaletteData ImageLoader]
-	  [org.eclipse.swt.events SelectionListener PaintListener MouseMoveListener
-	   ModifyListener]))
-
-;; import swt here
-(import-swt)
+		    [props :as props]))
+  (:import (org.eclipse.swt SWT)
+           (org.eclipse.swt.widgets Display MessageBox)))
 
 (defn swt-create [ctor parent style]
   (apply ctor parent (-> style props/get-value :specials :*cons)))
@@ -41,7 +26,7 @@
   prints stack traces."
   ([shell]
      (let [display (default-display)]
-       (try 
+       (try
 	 (if-not (.readAndDispatch display)
 	   (.sleep display))
 	 (catch Exception e (.printStackTrace e)))
