@@ -1,0 +1,195 @@
+<html>
+  <head>
+    <title>guiftw.tree - GUI FTW! nil API documentation</title>
+    <link href="static/favicon.png" rel="icon" />
+    <link href="static/favicon.png" rel="shortcut icon" />
+    <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/wiki.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/internal.css" rel="stylesheet" />
+    <style>.menuWrapper{height: 36px;}</style>
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://www.wikispaces.com/_/2009051601/s/internal_ie.css" type="text/css" />
+    <![endif]-->
+  </head>
+<!--
+This document was auto-generated from the source by the clojure autodoc system.
+To report errors or ask questions about the overall documentation structure, formatting,
+etc., contact Tom Faulhaber (google mail name: tomfaulhaber).
+For errors in the documentation of a particular namespace, contact the author of that
+namespace.
+-->
+  <body>
+    <div id="AllContentContainer">
+      <div id="Header">
+	<a id="Logo" href="index.html"><img alt="Clojure" height="100" width="100" src="static/clojure-icon.gif" /></a>
+	<h1><a title="page header title" id="page-header" href="index.html">GUI FTW!</a></h1>
+      </div>
+      <div id="leftcolumn"><div style="text-align: center;"></div>
+<div class="menu">
+  <div class="WikiCustomNav WikiElement wiki">
+    <span class="toc-header"><span id="project-name">GUI FTW!</span> <span id="version"></span> API</span><br />
+    <ul>
+      <li><a class="wiki_link" href="index.html">Overview</a></li>
+      <li><a class="wiki_link" href="api-index.html">API Index</a></li>
+    </ul>
+    <span class="toc-header">Namespaces</span>
+    <ul id="left-sidebar-list">
+      <li><a href="guiftw.events-api.html" class="wiki_link">guiftw.events</a></li><li><a href="guiftw.examples.swing.basic-api.html" class="wiki_link">guiftw.examples.swing.basic</a></li><li><a href="guiftw.examples.swt.basic-api.html" class="wiki_link">guiftw.examples.swt.basic</a></li><li><a href="guiftw.props-api.html" class="wiki_link">guiftw.props</a></li><li><a href="guiftw.special-api.html" class="wiki_link">guiftw.special</a></li><li><a href="guiftw.styles-api.html" class="wiki_link">guiftw.styles</a></li><li><a href="guiftw.swing-api.html" class="wiki_link">guiftw.swing</a></li><li><a href="guiftw.swt-api.html" class="wiki_link">guiftw.swt</a></li><li><a href="guiftw.tree-api.html" class="wiki_link">guiftw.tree</a></li><li><a href="guiftw.utils-api.html" class="wiki_link">guiftw.utils</a></li>
+    </ul>
+    
+    <a href="http://clojure.org" class="wiki_link">Clojure Home</a>
+  </div>
+</div>
+</div>
+      <div id="rightcolumn">
+	<div id="Content">
+	  <div class="contentBox"><div class="innerContentBox">
+              <div id="content_view" class="wiki wikiPage">
+                <div id="right-sidebar"><div id="toc">
+  <h1 class="nopad">Table of Contents</h1>
+  <div style="margin-left: 1em;" class="toc-section">
+    <a href="#toc0">Overview</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.tree/constructor">constructor</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.tree/gui-creator">gui-creator</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.tree/merge-guis">merge-guis</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.tree/parse-gui">parse-gui</a>
+    </div>
+    <br />
+  </div>
+</div>
+</div>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">guiftw.tree</span>
+  - <span id="header-project">GUI FTW!</span> <span id="header-version"></span> (<span id="header-status"></span>)
+  </h1>
+
+<br />Full namespace name: <span id="long-name">guiftw.tree</span>
+<p></p>
+<h2>Overview</h2>
+<pre id="namespace-docstr">Core of GUI tree stucture parsing. The parse-gui macro is heart of it.
+
+Syntax for GUI structure:
+
+[class1 [prop1 value1, prop2 value2, ...]
+ [class2 [prop3 value3, ...] ...]
+ [class3 [prop4 value4, ...] ...]
+ ...]
+
+Each node begins with class name followed by private style sheet and
+any number of children. Syntax for style sheets is described in
+guiftw.styles doc. Uses extra properties:
+
+*id -- unique identifier of the object,
+*groups -- seq of groups identifiers where this object belongs.
+
+These properties are ignored when used in stylesheets created by
+guiftw.styles/stylesheet macro.
+
+Various functions return so-called GUI state wich is a map wrapped
+in atom. This map contains predefined keys:
+
+:ids -- a map with objects indentified by their :*id property given
+        in style sheet.
+:groups -- a map with lists of objects grouped by :*group property
+           given in the style sheet,
+:root -- top-level object in GUI tree (usually window).
+
+User can add any custom key/values at will. They will be preserved.</pre>
+
+
+<br />
+<h2>Public Variables and Functions</h2>
+<div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.tree/constructor">constructor</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (constructor class)
+</pre>
+  <pre id="var-docstr">Returns multi-variant function that reflects all constructors for
+given class.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.tree/gui-creator">gui-creator</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (gui-creator instantiator constructor style children)
+</pre>
+  <pre id="var-docstr">Logic behind creating GUI. It's what parse-gui will return and it's
+not intended to be used outside of it.
+
+Instantiator have to be 3-arg fn that will construct object using
+constructor and add it to a parent using evetually properties of an
+object (especially *cons -- constructor parameters -- and *lay --
+layout parameters).</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.tree/merge-guis">merge-guis</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (merge-guis old new)
+</pre>
+  <pre id="var-docstr">Merges two GUI states (maps). Keys :ids, :groups and :root are
+treated differently: :ids are merged, all values inside :groups are
+concatenated and :root is preserved from old map.
+
+All other keys are merged like in merge function.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.tree/parse-gui">parse-gui</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (parse-gui instantiator struct)
+</pre>
+  <pre id="var-docstr">Parses GUI tree (struct) at compile time. Parsing is as abstract as
+possible, given instantiator function is concrete implementation of
+creating object and adding it as an child to it's parent.
+
+Instantiator function takes three arguments: a constructor
+function (generated multi-variant fn that represents all possible
+constructors for class at in this node), parent object (nil is
+possible) and style for object that will be created.
+
+Returns a function that takes zero or more arguments: gui state and
+any amount of style sheets that will be applied to created
+objects. Created function will return modified gui state or newly
+created if gui arg is nil. If you pass a map wrapped in an atom with
+some custom keys (:ids, :groups and :root are reserved) they will be
+preserved so you can put there your custom application state.
+
+Use any of concrete implementations like guiftw.swing/swing or
+guiftw.swt/swt instead of this.</pre>
+  
+  
+  
+</div>
+
+
+</div>
+              </div>
+            </div>
+          </div>
+	</div>
+	<div id="foot">
+	  <div style="text-align: center;" id="copyright">2011 Szymon Witamborski, MIT Licence</div>
+	</div>
+      </div>
+      <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
+      Clojure auto-documentation system by Tom Faulhaber.</div>
+    </div>
+    <!-- /AllContentContainer -->
+  </body>
+
+</html>

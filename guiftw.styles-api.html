@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <title>guiftw.styles - GUI FTW! nil API documentation</title>
+    <link href="static/favicon.png" rel="icon" />
+    <link href="static/favicon.png" rel="shortcut icon" />
+    <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/wiki.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/internal.css" rel="stylesheet" />
+    <style>.menuWrapper{height: 36px;}</style>
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://www.wikispaces.com/_/2009051601/s/internal_ie.css" type="text/css" />
+    <![endif]-->
+  </head>
+<!--
+This document was auto-generated from the source by the clojure autodoc system.
+To report errors or ask questions about the overall documentation structure, formatting,
+etc., contact Tom Faulhaber (google mail name: tomfaulhaber).
+For errors in the documentation of a particular namespace, contact the author of that
+namespace.
+-->
+  <body>
+    <div id="AllContentContainer">
+      <div id="Header">
+	<a id="Logo" href="index.html"><img alt="Clojure" height="100" width="100" src="static/clojure-icon.gif" /></a>
+	<h1><a title="page header title" id="page-header" href="index.html">GUI FTW!</a></h1>
+      </div>
+      <div id="leftcolumn"><div style="text-align: center;"></div>
+<div class="menu">
+  <div class="WikiCustomNav WikiElement wiki">
+    <span class="toc-header"><span id="project-name">GUI FTW!</span> <span id="version"></span> API</span><br />
+    <ul>
+      <li><a class="wiki_link" href="index.html">Overview</a></li>
+      <li><a class="wiki_link" href="api-index.html">API Index</a></li>
+    </ul>
+    <span class="toc-header">Namespaces</span>
+    <ul id="left-sidebar-list">
+      <li><a href="guiftw.events-api.html" class="wiki_link">guiftw.events</a></li><li><a href="guiftw.examples.swing.basic-api.html" class="wiki_link">guiftw.examples.swing.basic</a></li><li><a href="guiftw.examples.swt.basic-api.html" class="wiki_link">guiftw.examples.swt.basic</a></li><li><a href="guiftw.props-api.html" class="wiki_link">guiftw.props</a></li><li><a href="guiftw.special-api.html" class="wiki_link">guiftw.special</a></li><li><a href="guiftw.styles-api.html" class="wiki_link">guiftw.styles</a></li><li><a href="guiftw.swing-api.html" class="wiki_link">guiftw.swing</a></li><li><a href="guiftw.swt-api.html" class="wiki_link">guiftw.swt</a></li><li><a href="guiftw.tree-api.html" class="wiki_link">guiftw.tree</a></li><li><a href="guiftw.utils-api.html" class="wiki_link">guiftw.utils</a></li>
+    </ul>
+    
+    <a href="http://clojure.org" class="wiki_link">Clojure Home</a>
+  </div>
+</div>
+</div>
+      <div id="rightcolumn">
+	<div id="Content">
+	  <div class="contentBox"><div class="innerContentBox">
+              <div id="content_view" class="wiki wikiPage">
+                <div id="right-sidebar"><div id="toc">
+  <h1 class="nopad">Table of Contents</h1>
+  <div style="margin-left: 1em;" class="toc-section">
+    <a href="#toc0">Overview</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.styles/CascadeSheet">CascadeSheet</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.styles/applies-to?">applies-to?</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.styles/cascade">cascade</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.styles/stylesheet">stylesheet</a>
+    </div>
+    <br />
+  </div>
+</div>
+</div>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">guiftw.styles</span>
+  - <span id="header-project">GUI FTW!</span> <span id="header-version"></span> (<span id="header-status"></span>)
+  </h1>
+
+<br />Full namespace name: <span id="long-name">guiftw.styles</span>
+<p></p>
+<h2>Overview</h2>
+<pre id="namespace-docstr">Styles handling. Look in stylesheet macro doc for syntax.</pre>
+
+
+<br />
+<h2>Public Variables and Functions</h2>
+<div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.styles/CascadeSheet">CascadeSheet</h2>
+  <span id="var-type">var</span><br />
+  <pre id="var-usage"></pre>
+  <pre id="var-docstr">CascadeSheet protocol. Defines sheet that can be cascaded (merged)
+with other sheet. Includes cascade and applies-to? methods.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.styles/applies-to?">applies-to?</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (applies-to? sheet applicants)
+</pre>
+  <pre id="var-docstr">Returns true if sheet is destined
+to apply on given applicants (sequence of identifiers).</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.styles/cascade">cascade</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (cascade original over)
+</pre>
+  <pre id="var-docstr">Cascade (merge) two sheets.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.styles/stylesheet">stylesheet</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (stylesheet &amp; ids-style-pairs)
+</pre>
+  <pre id="var-docstr">Takes any amount of pairs of list of identifiers and list of
+properties. List of identifiers can contain unique object ids (as
+in :*id) and group ids (as in :*groups). Following list of
+properties will be applied to objects that matches these
+indetifiers. Returns list of Style objects that corresponds to these
+pairs of lists.
+
+List of properties contain pairs of property name and
+value. Property names maps directly to JavaBeans property
+names (setters). For example :text "ASDF" will map to
+setText("ASDF"). Properties will applied on objects in order
+they're given. Property names can be of String, keyword or symbol
+type but keyword type is recommended.
+
+Style sheets can contain event handlers where property name is
+&lt;listener-name-without-"Listener"&gt;+&lt;method-name&gt; of Listener that
+corresonds to the event you wan to handle. Example:
+mouse+mouse-clicked will correspond to MouseListener, method
+mouseClicked. Also short-hand for double prefix is ++. You can write
+mouse++clicked and it'll translate to same thing. Value for event
+handlers is an function that takes two arguments: GUI state (an atom
+as described in guiftw.tree doc) and event object.
+
+Toolkits (such as Swing) can impose some additional properties (not
+translated to setters but used in other places). All extra
+properties begin with * (asterisk).
+
+lispy-notation is translated to CamelCase, for
+example :default-close-operation -&gt; setDefaultCloseOperation.
+CamelCase is left as-is.
+
+For setters that takes more than one argument you can tag value with
+^unroll. Then :size ^unroll (300 200) will translate to setSize(300,
+200) instead of setSize((300 200)).</pre>
+  
+  
+  
+</div>
+
+
+</div>
+              </div>
+            </div>
+          </div>
+	</div>
+	<div id="foot">
+	  <div style="text-align: center;" id="copyright">2011 Szymon Witamborski, MIT Licence</div>
+	</div>
+      </div>
+      <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
+      Clojure auto-documentation system by Tom Faulhaber.</div>
+    </div>
+    <!-- /AllContentContainer -->
+  </body>
+
+</html>

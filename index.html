@@ -1,0 +1,272 @@
+<html>
+  <head>
+    <title>Overview - GUI FTW! nil API documentation</title>
+    <link href="static/favicon.png" rel="icon" />
+    <link href="static/favicon.png" rel="shortcut icon" />
+    <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/wiki.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/internal.css" rel="stylesheet" />
+    <style>.menuWrapper{height: 36px;}</style>
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://www.wikispaces.com/_/2009051601/s/internal_ie.css" type="text/css" />
+    <![endif]-->
+  </head>
+<!--
+This document was auto-generated from the source by the clojure autodoc system.
+To report errors or ask questions about the overall documentation structure, formatting,
+etc., contact Tom Faulhaber (google mail name: tomfaulhaber).
+For errors in the documentation of a particular namespace, contact the author of that
+namespace.
+-->
+  <body>
+    <div id="AllContentContainer">
+      <div id="Header">
+	<a id="Logo" href="index.html"><img alt="Clojure" height="100" width="100" src="static/clojure-icon.gif" /></a>
+	<h1><a title="page header title" id="page-header" href="index.html">GUI FTW!</a></h1>
+      </div>
+      <div id="leftcolumn"><div style="text-align: center;"></div>
+<div class="menu">
+  <div class="WikiCustomNav WikiElement wiki">
+    <span class="toc-header"><span id="project-name">GUI FTW!</span> <span id="version"></span> API</span><br />
+    <ul>
+      <li><a class="wiki_link" href="index.html">Overview</a></li>
+      <li><a class="wiki_link" href="api-index.html">API Index</a></li>
+    </ul>
+    <span class="toc-header">Namespaces</span>
+    <ul id="left-sidebar-list">
+      <li><a href="guiftw.events-api.html" class="wiki_link">guiftw.events</a></li><li><a href="guiftw.examples.swing.basic-api.html" class="wiki_link">guiftw.examples.swing.basic</a></li><li><a href="guiftw.examples.swt.basic-api.html" class="wiki_link">guiftw.examples.swt.basic</a></li><li><a href="guiftw.props-api.html" class="wiki_link">guiftw.props</a></li><li><a href="guiftw.special-api.html" class="wiki_link">guiftw.special</a></li><li><a href="guiftw.styles-api.html" class="wiki_link">guiftw.styles</a></li><li><a href="guiftw.swing-api.html" class="wiki_link">guiftw.swing</a></li><li><a href="guiftw.swt-api.html" class="wiki_link">guiftw.swt</a></li><li><a href="guiftw.tree-api.html" class="wiki_link">guiftw.tree</a></li><li><a href="guiftw.utils-api.html" class="wiki_link">guiftw.utils</a></li>
+    </ul>
+    
+    <a href="http://clojure.org" class="wiki_link">Clojure Home</a>
+  </div>
+</div>
+</div>
+      <div id="rightcolumn">
+	<div id="Content">
+	  <div class="contentBox"><div class="innerContentBox">
+              <div id="content_view" class="wiki wikiPage">
+                <div id="right-sidebar"><div id="toc">
+  <h1 class="nopad">Table of Contents</h1>
+  <div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.events">guiftw.events</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.examples.swing.basic">guiftw.examples.swing.basic</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.examples.swt.basic">guiftw.examples.swt.basic</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.props">guiftw.props</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.special">guiftw.special</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.styles">guiftw.styles</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.swing">guiftw.swing</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.swt">guiftw.swt</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.tree">guiftw.tree</a>
+    
+    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.utils">guiftw.utils</a>
+    
+    <br />
+  </div>
+</div>
+</div>
+                <div id="content-tag"><h1 id="toc0">API Overview - <span id="header-project">GUI FTW!</span> <span id="header-version"></span> (<span id="header-status"></span>)</h1>
+<br />
+<div id="project-description">Declarative GUI framework for Clojure</div>
+<br />
+<div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.events">guiftw.events</h2>
+  
+  <a href="guiftw.events-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr">Functions and macros in guiftw.events handle generation of event
+handlers code.</pre>
+  
+  
+  
+  Public variables and functions:
+  <span id="var-link"><a href="guiftw.events-api.html#guiftw.events/adder" id="var-tag">adder</a> </span><span id="var-link"><a href="guiftw.events-api.html#guiftw.events/event-handler" id="var-tag">event-handler</a> </span><span id="var-link"><a href="guiftw.events-api.html#guiftw.events/event-spec?" id="var-tag">event-spec?</a> </span><span id="var-link"><a href="guiftw.events-api.html#guiftw.events/listener" id="var-tag">listener</a> </span><span id="var-link"><a href="guiftw.events-api.html#guiftw.events/listener&amp;method-names" id="var-tag">listener&amp;method-names</a> </span><br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.examples.swing.basic">guiftw.examples.swing.basic</h2>
+  
+  <a href="guiftw.examples.swing.basic-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr"></pre>
+  
+  
+  
+  Public variables and functions:
+  <br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.examples.swt.basic">guiftw.examples.swt.basic</h2>
+  
+  <a href="guiftw.examples.swt.basic-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr"></pre>
+  
+  
+  
+  Public variables and functions:
+  <br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.props">guiftw.props</h2>
+  
+  <a href="guiftw.props-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr"></pre>
+  
+  
+  
+  Public variables and functions:
+  <span id="var-link"><a href="guiftw.props-api.html#guiftw.props/get-value" id="var-tag">get-value</a> </span><span id="var-link"><a href="guiftw.props-api.html#guiftw.props/property-name" id="var-tag">property-name</a> </span><span id="var-link"><a href="guiftw.props-api.html#guiftw.props/set-on" id="var-tag">set-on</a> </span><span id="var-link"><a href="guiftw.props-api.html#guiftw.props/setter-name" id="var-tag">setter-name</a> </span><br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.special">guiftw.special</h2>
+  
+  <a href="guiftw.special-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr"></pre>
+  
+  
+  
+  Public variables and functions:
+  <br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.styles">guiftw.styles</h2>
+  
+  <a href="guiftw.styles-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr">Styles handling. Look in stylesheet macro doc for syntax.</pre>
+  
+  
+  
+  Public variables and functions:
+  <span id="var-link"><a href="guiftw.styles-api.html#guiftw.styles/CascadeSheet" id="var-tag">CascadeSheet</a> </span><span id="var-link"><a href="guiftw.styles-api.html#guiftw.styles/applies-to?" id="var-tag">applies-to?</a> </span><span id="var-link"><a href="guiftw.styles-api.html#guiftw.styles/cascade" id="var-tag">cascade</a> </span><span id="var-link"><a href="guiftw.styles-api.html#guiftw.styles/stylesheet" id="var-tag">stylesheet</a> </span><br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.swing">guiftw.swing</h2>
+  
+  <a href="guiftw.swing-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr">Functions for Happy Swing User.</pre>
+  
+  
+  
+  Public variables and functions:
+  <span id="var-link"><a href="guiftw.swing-api.html#guiftw.swing/lafs" id="var-tag">lafs</a> </span><span id="var-link"><a href="guiftw.swing-api.html#guiftw.swing/set-laf" id="var-tag">set-laf</a> </span><span id="var-link"><a href="guiftw.swing-api.html#guiftw.swing/swing" id="var-tag">swing</a> </span><span id="var-link"><a href="guiftw.swing-api.html#guiftw.swing/swing-create" id="var-tag">swing-create</a> </span><br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.swt">guiftw.swt</h2>
+  
+  <a href="guiftw.swt-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr">Functions for Happy SWT User</pre>
+  
+  
+  
+  Public variables and functions:
+  <span id="var-link"><a href="guiftw.swt-api.html#guiftw.swt/async-exec" id="var-tag">async-exec</a> </span><span id="var-link"><a href="guiftw.swt-api.html#guiftw.swt/default-display" id="var-tag">default-display</a> </span><span id="var-link"><a href="guiftw.swt-api.html#guiftw.swt/ok?" id="var-tag">ok?</a> </span><span id="var-link"><a href="guiftw.swt-api.html#guiftw.swt/swt-loop" id="var-tag">swt-loop</a> </span><br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.tree">guiftw.tree</h2>
+  
+  <a href="guiftw.tree-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr">Core of GUI tree stucture parsing. The parse-gui macro is heart of it.
+
+Syntax for GUI structure:
+
+[class1 [prop1 value1, prop2 value2, ...]
+ [class2 [prop3 value3, ...] ...]
+ [class3 [prop4 value4, ...] ...]
+ ...]
+
+Each node begins with class name followed by private style sheet and
+any number of children. Syntax for style sheets is described in
+guiftw.styles doc. Uses extra properties:
+
+*id -- unique identifier of the object,
+*groups -- seq of groups identifiers where this object belongs.
+
+These properties are ignored when used in stylesheets created by
+guiftw.styles/stylesheet macro.
+
+Various functions return so-called GUI state wich is a map wrapped
+in atom. This map contains predefined keys:
+
+:ids -- a map with objects indentified by their :*id property given
+        in style sheet.
+:groups -- a map with lists of objects grouped by :*group property
+           given in the style sheet,
+:root -- top-level object in GUI tree (usually window).
+
+User can add any custom key/values at will. They will be preserved.</pre>
+  
+  
+  
+  Public variables and functions:
+  <span id="var-link"><a href="guiftw.tree-api.html#guiftw.tree/constructor" id="var-tag">constructor</a> </span><span id="var-link"><a href="guiftw.tree-api.html#guiftw.tree/gui-creator" id="var-tag">gui-creator</a> </span><span id="var-link"><a href="guiftw.tree-api.html#guiftw.tree/merge-guis" id="var-tag">merge-guis</a> </span><span id="var-link"><a href="guiftw.tree-api.html#guiftw.tree/parse-gui" id="var-tag">parse-gui</a> </span><br />
+  
+</div><div id="namespace-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.utils">guiftw.utils</h2>
+  
+  <a href="guiftw.utils-api.html" id="api-link">Detailed API documentation</a><br />
+  <pre id="namespace-docstr"></pre>
+  
+  
+  
+  Public variables and functions:
+  <span id="var-link"><a href="guiftw.utils-api.html#guiftw.utils/CamelCase" id="var-tag">CamelCase</a> </span><span id="var-link"><a href="guiftw.utils-api.html#guiftw.utils/camelCase-small" id="var-tag">camelCase-small</a> </span><br />
+  
+</div>
+</div>
+              </div>
+            </div>
+          </div>
+	</div>
+	<div id="foot">
+	  <div style="text-align: center;" id="copyright">2011 Szymon Witamborski, MIT Licence</div>
+	</div>
+      </div>
+      <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
+      Clojure auto-documentation system by Tom Faulhaber.</div>
+    </div>
+    <!-- /AllContentContainer -->
+  </body>
+
+</html>
