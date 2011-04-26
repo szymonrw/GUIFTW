@@ -74,7 +74,7 @@
 					(apply concat stylesheets))]
 			(styles/cascade reduced style)
 			style)
-	  parent (->> @gui :root)
+	  parent (:root @gui)
 	  obj (instantiator constructor parent final-style)]
       (props/set-on final-style gui obj)
       (let [id (if-let [id (:*id specials)]
