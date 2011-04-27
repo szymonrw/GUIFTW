@@ -52,8 +52,18 @@
   (apply merge
 	 {:ids (merge (:ids old) (:ids new))
 	  :groups (merge-with concat (:groups old) (:groups new))
-	  :root (or (:root new) (:root old))}
+	  :root (or (:root old) (:root new))}
 	 (map #(dissoc % :ids :groups :root) [old new]))) ;; merge rest of map traditionally
+
+(defn gui-creator-args-dispatch
+  ""
+  [args]
+  (apply merge-with concat
+         (map (fn [x] {(cond (sequential? x) :stylesheets
+                            (instance? clojure.lang.IDeref x) :gui
+                            :default :parent)
+                      x})
+              args)))
 
 (defn gui-creator
   "Logic behind creating GUI. It's what parse-gui will return and it's
@@ -64,18 +74,18 @@
   object (especially *cons -- constructor parameters -- and *lay --
   layout parameters)."
   [instantiator constructor style children]
-  (fn [& [gui & stylesheets]]
-    {:pre [(or (nil? gui)
-	       (instance? clojure.lang.IDeref gui))]}
-    (let [gui (or gui (atom {}))
+  (fn [& args]
+    (let [{:keys [stylesheets gui parent]} (gui-creator-args-dispatch args)
+          gui (or gui (atom {}))
 	  specials (-> style props/get-value :specials)
 	  final-style (if-let [reduced (styles/reduce-stylesheet
 					(cons (:*id specials) (:*groups specials))
-					(apply concat stylesheets))]
+					stylesheets)]
 			(styles/cascade reduced style)
 			style)
-	  parent (:root @gui)
+	  parent (or parent (:root @gui))
 	  obj (instantiator constructor parent final-style)]
+      (clojure.pprint/pprint [(if parent (.hashCode parent)) (.hashCode obj)])
       (props/set-on final-style gui obj)
       (let [id (if-let [id (:*id specials)]
 		 {:ids {id obj}})
@@ -84,8 +94,7 @@
 	    root {:root obj}
 	    gui-news (merge id groups root)]
 	(swap! gui merge-guis gui-news)
-	(dorun (map #(apply % gui stylesheets) children))
-	(swap! gui assoc :root obj))
+	(dorun (map #(apply % gui obj stylesheets) children)))
       gui)))
 
 (defmacro parse-gui
