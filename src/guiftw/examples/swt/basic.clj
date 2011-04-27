@@ -75,7 +75,7 @@
 
 
 (defn -main [& args]
-  (let [shell (gui (default-display) sheet)]
+  (let [shell (:root @(gui (default-display) sheet))]
     (.open shell) ;; Is there another way to show a shell?
     (swt-loop shell))) ;; Start SWT main loop that will stop program
 		       ;; after shell is closed.
