@@ -71,7 +71,7 @@
 ;; (async-exec #(.open (gui (default-display) sheet)))
 
 (defn start-in-repl [] ;; remember to (swt-thread) first!
-  (async-exec #(.open (gui (default-display) sheet))))
+  (async-exec #(.open (:root @(gui (default-display) sheet)))))
 
 
 (defn -main [& args]
