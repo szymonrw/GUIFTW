@@ -52,7 +52,7 @@
   (apply merge
 	 {:ids (merge (:ids old) (:ids new))
 	  :groups (merge-with concat (:groups old) (:groups new))
-	  :root (or (:root old) (:root new))}
+	  :root (or (:root new) (:root old))}
 	 (map #(dissoc % :ids :groups :root) [old new]))) ;; merge rest of map traditionally
 
 (defn gui-creator
@@ -84,7 +84,8 @@
 	    root {:root obj}
 	    gui-news (merge id groups root)]
 	(swap! gui merge-guis gui-news)
-	(dorun (map #(apply % gui stylesheets) children)))
+	(dorun (map #(apply % gui stylesheets) children))
+	(swap! gui assoc :root parent))
       gui)))
 
 (defmacro parse-gui
