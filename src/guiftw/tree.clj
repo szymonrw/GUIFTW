@@ -56,7 +56,10 @@
 	 (map #(dissoc % :ids :groups :root) [old new]))) ;; merge rest of map traditionally
 
 (defn gui-creator-args-dispatch
-  ""
+  "Helper function for gui-creator. Dispatches args to map with keys:
+  :stylesheets -- all stylesheets concatenated
+  :gui -- state
+  :parent -- component where widgets will be added."
   [args]
   (apply merge-with concat
          (map (fn [x] {(cond (sequential? x) :stylesheets
@@ -93,7 +96,7 @@
 	    root {:root obj}
 	    gui-news (merge id groups root)]
 	(swap! gui merge-guis gui-news)
-	(dorun (map #(apply % gui obj stylesheets) children)))
+	(dorun (map #(% gui obj stylesheets) children)))
       gui)))
 
 (defmacro parse-gui
@@ -106,12 +109,14 @@
   constructors for class at in this node), parent object (nil is
   possible) and style for object that will be created.
 
-  Returns a function that takes zero or more arguments: gui state and
-  any amount of style sheets that will be applied to created
-  objects. Created function will return modified gui state or newly
-  created if gui arg is nil. If you pass a map wrapped in an atom with
-  some custom keys (:ids, :groups and :root are reserved) they will be
-  preserved so you can put there your custom application state.
+  Returns a function that takes zero or more arguments: gui state,
+  parent object (place where widgets will be added) and any amount of
+  style sheets that will be applied to created objects. All parameters
+  are optional. Created function will return modified gui state or
+  newly created if gui arg is nil. If you pass a map wrapped in an
+  atom with some custom keys (:ids, :groups and :root are reserved)
+  they will be preserved so you can put there your custom application
+  state.
 
   Use any of concrete implementations like guiftw.swing/swing or
   guiftw.swt/swt instead of this."
