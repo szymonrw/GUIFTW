@@ -85,7 +85,6 @@
 			style)
 	  parent (or parent (:root @gui))
 	  obj (instantiator constructor parent final-style)]
-      (clojure.pprint/pprint [(if parent (.hashCode parent)) (.hashCode obj)])
       (props/set-on final-style gui obj)
       (let [id (if-let [id (:*id specials)]
 		 {:ids {id obj}})
