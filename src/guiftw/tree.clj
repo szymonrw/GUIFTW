@@ -62,7 +62,8 @@
   :parent -- component where widgets will be added."
   [args]
   (apply merge-with concat
-         (map (fn [x] {(cond (sequential? x) :stylesheets
+         (map (fn [x] {(cond (nil? x) nil
+                            (sequential? x) :stylesheets
                             (instance? clojure.lang.IDeref x) :gui
                             :default :parent)
                       x})
