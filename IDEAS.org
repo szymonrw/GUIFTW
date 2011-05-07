@@ -6,3 +6,13 @@
 * Styling by class
 
   Using class names in styles to style, say, all JButton's.
+
+* Custom adders
+
+  https://github.com/santamon/GUIFTW/issues/1
+
+* Caching Computed Styles for Objects
+
+  It'll preserve style in a map in gui state so we could reuse it
+  later. Probably needed for custom adders (we need to know *adder
+  property of parent when creating children -- not possible atm).
