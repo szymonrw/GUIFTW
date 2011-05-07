@@ -33,7 +33,7 @@
 			     ;; always parent object and it's not
 			     ;; given explicitly by user, it's filled
 			     ;; by GUI FTW when using SWT.
-			     *cons (SWT/PUSH)
+			     *cons [SWT/PUSH]
 			     :text "This is a button! Click it!"
 
 			     ;; Obviously, we have to implement
