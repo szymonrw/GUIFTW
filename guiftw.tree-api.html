@@ -54,6 +54,8 @@ namespace.
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#guiftw.tree/gui-creator">gui-creator</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.tree/gui-creator-args-dispatch">gui-creator-args-dispatch</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#guiftw.tree/merge-guis">merge-guis</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#guiftw.tree/parse-gui">parse-gui</a>
@@ -134,6 +136,20 @@ layout parameters).</pre>
 </div><div id="var-entry">
   <br />
   <hr />
+  <h2 id="guiftw.tree/gui-creator-args-dispatch">gui-creator-args-dispatch</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (gui-creator-args-dispatch args)
+</pre>
+  <pre id="var-docstr">Helper function for gui-creator. Dispatches args to map with keys:
+:stylesheets -- all stylesheets concatenated
+:gui -- state
+:parent -- component where widgets will be added.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
   <h2 id="guiftw.tree/merge-guis">merge-guis</h2>
   <span id="var-type">function</span><br />
   <pre id="var-usage">Usage: (merge-guis old new)
@@ -162,12 +178,14 @@ function (generated multi-variant fn that represents all possible
 constructors for class at in this node), parent object (nil is
 possible) and style for object that will be created.
 
-Returns a function that takes zero or more arguments: gui state and
-any amount of style sheets that will be applied to created
-objects. Created function will return modified gui state or newly
-created if gui arg is nil. If you pass a map wrapped in an atom with
-some custom keys (:ids, :groups and :root are reserved) they will be
-preserved so you can put there your custom application state.
+Returns a function that takes zero or more arguments: gui state,
+parent object (place where widgets will be added) and any amount of
+style sheets that will be applied to created objects. All parameters
+are optional. Created function will return modified gui state or
+newly created if gui arg is nil. If you pass a map wrapped in an
+atom with some custom keys (:ids, :groups and :root are reserved)
+they will be preserved so you can put there your custom application
+state.
 
 Use any of concrete implementations like guiftw.swing/swing or
 guiftw.swt/swt instead of this.</pre>

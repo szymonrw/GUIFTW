@@ -275,6 +275,18 @@
    :doc
    "Logic behind creating GUI. It's what parse-gui will return and it's\nnot intended to be used outside of it.\n\nInstantiator have to be 3-arg fn that will construct object using\nconstructor and add it to a parent using evetually properties of an\nobject (especially *cons -- constructor parameters -- and *lay --\nlayout parameters).",
    :var-type "function",
+   :line 72,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\tree.clj"}
+  {:arglists ([args]),
+   :name "gui-creator-args-dispatch",
+   :namespace "guiftw.tree",
+   :source-url nil,
+   :raw-source-url nil,
+   :wiki-url
+   "/guiftw.tree-api.html#guiftw.tree/gui-creator-args-dispatch",
+   :doc
+   "Helper function for gui-creator. Dispatches args to map with keys:\n:stylesheets -- all stylesheets concatenated\n:gui -- state\n:parent -- component where widgets will be added.",
+   :var-type "function",
    :line 58,
    :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\tree.clj"}
   {:arglists ([old new]),
@@ -295,9 +307,9 @@
    :raw-source-url nil,
    :wiki-url "/guiftw.tree-api.html#guiftw.tree/parse-gui",
    :doc
-   "Parses GUI tree (struct) at compile time. Parsing is as abstract as\npossible, given instantiator function is concrete implementation of\ncreating object and adding it as an child to it's parent.\n\nInstantiator function takes three arguments: a constructor\nfunction (generated multi-variant fn that represents all possible\nconstructors for class at in this node), parent object (nil is\npossible) and style for object that will be created.\n\nReturns a function that takes zero or more arguments: gui state and\nany amount of style sheets that will be applied to created\nobjects. Created function will return modified gui state or newly\ncreated if gui arg is nil. If you pass a map wrapped in an atom with\nsome custom keys (:ids, :groups and :root are reserved) they will be\npreserved so you can put there your custom application state.\n\nUse any of concrete implementations like guiftw.swing/swing or\nguiftw.swt/swt instead of this.",
+   "Parses GUI tree (struct) at compile time. Parsing is as abstract as\npossible, given instantiator function is concrete implementation of\ncreating object and adding it as an child to it's parent.\n\nInstantiator function takes three arguments: a constructor\nfunction (generated multi-variant fn that represents all possible\nconstructors for class at in this node), parent object (nil is\npossible) and style for object that will be created.\n\nReturns a function that takes zero or more arguments: gui state,\nparent object (place where widgets will be added) and any amount of\nstyle sheets that will be applied to created objects. All parameters\nare optional. Created function will return modified gui state or\nnewly created if gui arg is nil. If you pass a map wrapped in an\natom with some custom keys (:ids, :groups and :root are reserved)\nthey will be preserved so you can put there your custom application\nstate.\n\nUse any of concrete implementations like guiftw.swing/swing or\nguiftw.swt/swt instead of this.",
    :var-type "macro",
-   :line 90,
+   :line 103,
    :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\tree.clj"}
   {:arglists ([s]),
    :name "CamelCase",
