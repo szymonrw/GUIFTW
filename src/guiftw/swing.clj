@@ -24,7 +24,8 @@
   doc.
 
   Uses *lay extra property to specify layout constraints (used when
-  adding object to container)."
+  adding object to container) and *cons special property where the
+  value is list of constructor parameters."
   [struct]
   `(tree/parse-gui swing-create ~struct))
 
