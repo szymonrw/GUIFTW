@@ -54,9 +54,17 @@ namespace.
     </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#guiftw.swt/default-display">default-display</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.swt/message">message</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#guiftw.swt/ok?">ok?</a>
     </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.swt/swt">swt</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.swt/swt-create">swt-create</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
       <a href="#guiftw.swt/swt-loop">swt-loop</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.swt/swt-thread">swt-thread</a>
     </div>
     <br />
   </div>
@@ -69,7 +77,7 @@ namespace.
 <br />Full namespace name: <span id="long-name">guiftw.swt</span>
 <p></p>
 <h2>Overview</h2>
-<pre id="namespace-docstr">Functions for Happy SWT User</pre>
+<pre id="namespace-docstr">Functions for Happy SWT User.</pre>
 
 
 <br />
@@ -81,7 +89,7 @@ namespace.
   <span id="var-type">function</span><br />
   <pre id="var-usage">Usage: (async-exec f &amp; args)
 </pre>
-  <pre id="var-docstr">Put asynchronously function to evaluate in swt in near future.</pre>
+  <pre id="var-docstr">Put asynchronously function to evaluate in SWT in near future.</pre>
   
   
   
@@ -99,11 +107,50 @@ namespace.
 </div><div id="var-entry">
   <br />
   <hr />
+  <h2 id="guiftw.swt/message">message</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (message title body)
+</pre>
+  <pre id="var-docstr">Create standard SWT message box.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
   <h2 id="guiftw.swt/ok?">ok?</h2>
   <span id="var-type">function</span><br />
   <pre id="var-usage">Usage: (ok? w)
 </pre>
   <pre id="var-docstr">Check if w is not null and not disposed.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.swt/swt">swt</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (swt struct)
+</pre>
+  <pre id="var-docstr">Parses GUI tree (struct) and return a function that creates GUI
+described by struct. For syntax of struct look into guiftw.tree
+doc.
+
+Uses *cons special property which value is a list of constructor
+parameters without first one (the parent), which is added
+automatically.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.swt/swt-create">swt-create</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (swt-create ctor parent style)
+</pre>
+  <pre id="var-docstr">Instantiates object in SWT-specific manner.</pre>
   
   
   
@@ -117,6 +164,19 @@ namespace.
 </pre>
   <pre id="var-docstr">Loop that dispatches SWT events. Catches all exceptions and simply
 prints stack traces.</pre>
+  
+  
+  
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="guiftw.swt/swt-thread">swt-thread</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (swt-thread)
+</pre>
+  <pre id="var-docstr">Start SWT loop in background. Should be first thing to invoke when
+interacting with SWT in REPL to avoid wrong thread access
+exceptions.</pre>
   
   
   
