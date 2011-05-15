@@ -13,6 +13,7 @@ Features:
   - Put event handlers in stylesheets.
 
 More in-depth info:
+
 - [Wiki](https://github.com/santamon/GUIFTW/wiki),
 - [Overview](https://github.com/santamon/GUIFTW/wiki/Overview) -- how
   it works, basic syntax, etc.,
