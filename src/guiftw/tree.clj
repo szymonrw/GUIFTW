@@ -65,7 +65,8 @@
          (map (fn [x] {(cond (nil? x) nil
                             (sequential? x) :stylesheets
                             (instance? clojure.lang.IDeref x) :gui
-                            :default :parent)
+                            (instance? guiftw.props.Property x) :parent-style
+                            :else :parent)
                       x})
               args)))
 
@@ -79,7 +80,7 @@
   layout parameters)."
   [instantiator constructor style children]
   (fn [& args]
-    (let [{:keys [stylesheets gui parent]} (gui-creator-args-dispatch args)
+    (let [{:keys [stylesheets gui parent parent-style]} (gui-creator-args-dispatch args)
           gui (or gui (atom {}))
 	  specials (-> style props/get-value :specials)
 	  final-style (if-let [reduced (styles/reduce-stylesheet
@@ -97,7 +98,7 @@
 	    root {:root obj}
 	    gui-news (merge id groups root)]
 	(swap! gui merge-guis gui-news)
-	(dorun (map #(% gui obj stylesheets) children)))
+	(dorun (map #(% gui obj final-style stylesheets) children)))
       gui)))
 
 (defmacro parse-gui
