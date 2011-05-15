@@ -30,11 +30,13 @@
 7.  SWT: Add support for custom function running inside swt-loop to
     catch exceptions. Then user could write function like:
 
+    ```clj
     (defn my-exception-handler [f]
       (try (f)
         (catch A a ...)
         (catch B b ...)
         (finally ...)))
+    ```
 
     and invoke swt-loop like (swt-loop my-exception-handler)
 
