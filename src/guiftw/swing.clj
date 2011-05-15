@@ -10,7 +10,7 @@
   object. Then calls parent.add(object) or parent.add(object,
   layout_constraints) if :*lay is present in style. Parent can be nil
   and then no adding happens. Returns created object."
-  [ctor parent style]
+  [ctor style parent parent-style]
   (let [specials (-> style props/get-value :specials)
 	obj (apply ctor (:*cons specials))
 	layout-data (:*lay specials)]

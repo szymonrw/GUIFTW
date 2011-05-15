@@ -89,7 +89,7 @@
 			(styles/cascade reduced style)
 			style)
 	  parent (or parent (:root @gui))
-	  obj (instantiator constructor parent final-style)]
+	  obj (instantiator constructor final-style parent parent-style)]
       (props/set-on final-style gui obj)
       (let [id (if-let [id (:*id specials)]
 		 {:ids {id obj}})

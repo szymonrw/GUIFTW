@@ -7,7 +7,7 @@
 
 (defn swt-create
   "Instantiates object in SWT-specific manner."
-  [ctor parent style]
+  [ctor style parent parent-style]
   (apply ctor parent (-> style props/get-value :specials :*cons)))
 
 (defmacro swt
