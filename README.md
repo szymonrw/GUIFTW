@@ -7,22 +7,25 @@ easily.
 Features:
 
 - Supports both **Swing** and **SWT** toolkits as front-ends.
-- Declare your GUI structure using simple Clojure syntax. No XML!
-- Style it in a CSS fashion.
-- Put event handlers in stylesheets.
+- Allows user to write GUI code declaratively:
+  - Declare your GUI structure using simple Clojure syntax. No XML!
+  - Style it in a CSS fashion.
+  - Put event handlers in stylesheets.
 
-For more in-depth introduction for GUI FTW! check out the
-[Overview](https://github.com/santamon/GUIFTW/wiki/Overview) on wiki.
-Check out [rest of wiki](https://github.com/santamon/GUIFTW/wiki)
-anyway. There's also
-[online documentation](http://longstandingbug.com/GUIFTW) available.
+More in-depth info:
+- [Wiki](https://github.com/santamon/GUIFTW/wiki),
+- [Overview](https://github.com/santamon/GUIFTW/wiki/Overview) -- how
+  it works, basic syntax, etc.,
+- [Online Documentation](http://longstandingbug.com/GUIFTW) for
+  functions and macros,
+- [One Tutorial For All](https://github.com/santamon/GUIFTW/wiki/One-Tutorial-For-All) -- THE tutorial with Swing and SWT side-by-side.
 
 # Status & Usage
 
-It works. It's in alpha stage, that means some things will change
+It works. It's in *alpha* stage, that means some things will change
 and it's a little rough on the edges.
 
-Latest snapshot is available in
+Latest snapshot is available at
 [https://github.com/santamon/GUIFTW/archives/master](Downloads)
 section and in Lein/Cake through
 [http://clojars.org/guiftw](Clojars). Just add to `:dependecies`:
@@ -31,17 +34,12 @@ section and in Lein/Cake through
 [guiftw "0.2.0-SNAPSHOT"]
 ```
 
-There's a small tutorial demostrating creating simple GUI's in both
-Swing and SWT side-by-side:
-[One Tutorial For All](https://github.com/santamon/GUIFTW/wiki/One-Tutorial-For-All).
-
 There are two analogical examples for Swing and SWT with lots of
 comments. They're
-[[https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/basic.clj][here]]
+[here](https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/basic.clj)
 and
-[[https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swt/basic.clj][here]]. I
-recommend reading Swing example first and then SWT one as the latter
-contains only Swing-SWT differences.
+[here](https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swt/basic.clj). (They're
+older version of code from the tutorial.)
 
 # Disclaimer (Questions One Would Probably Ask)
 
