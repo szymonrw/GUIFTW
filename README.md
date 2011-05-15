@@ -1,18 +1,23 @@
 # GUI FTW! -- WTF?
 
-GUI FTW! is a **declarative** GUI library.
+GUI FTW! is a **declarative** and abstract GUI library. It's not tied
+to any GUI toolkit but instead front-ends for each can be written
+easily.
 
 Features:
 
-- Supports both **Swing** and **SWT** as backends.
+- Supports both **Swing** and **SWT** toolkits as front-ends.
 - Declare your GUI structure using simple Clojure syntax. No XML!
 - Style it in a CSS fashion.
 - Put event handlers in stylesheets.
 
-Planned features:
-- Bind data from widgets to Clojure's agents, atoms, vars, etc.
+For more in-depth introduction for GUI FTW! check out the
+[Overview](https://github.com/santamon/GUIFTW/wiki/Overview) on wiki.
+Check out [rest of wiki](https://github.com/santamon/GUIFTW/wiki)
+anyway. There's also
+[online documentation](http://longstandingbug.com/GUIFTW) available.
 
-# Status
+# Status & Usage
 
 It works. It's in alpha stage, that means some things will change
 and it's a little rough on the edges.
@@ -23,8 +28,12 @@ section and in Lein/Cake through
 [http://clojars.org/guiftw](Clojars). Just add to `:dependecies`:
 
 ```clj
-[guiftw "0.1.0-SNAPSHOT"]
+[guiftw "0.2.0-SNAPSHOT"]
 ```
+
+There's a small tutorial demostrating creating simple GUI's in both
+Swing and SWT side-by-side:
+[One Tutorial For All](https://github.com/santamon/GUIFTW/wiki/One-Tutorial-For-All).
 
 There are two analogical examples for Swing and SWT with lots of
 comments. They're
