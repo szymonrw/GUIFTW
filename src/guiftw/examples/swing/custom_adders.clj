@@ -21,6 +21,7 @@
             [JLabel [:*tab-title "Second TAB"
                      :text "YEAH!"]]]
            [JScrollPane [:*lay JSplitPane/RIGHT
+                         :*id :scroll
                          :*adder (fn [parent parent-style child child-style]
                                    (.setViewportView parent child))]
             [JLabel [:text (str "<html><pre>"
