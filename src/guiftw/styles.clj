@@ -45,16 +45,7 @@
 		      output)))]
 	   (Style. new-props
 		   (concat events other-events)
-		   {;; Inherit id and groups only from the other one.
-		    ;; Because when reducing styles, the last one will
-		    ;; be always private object's style, only id and
-		    ;; groups stored in there will be in final style.
-		    :*id (:*id other-specials)
-		    :*groups (:*groups other-specials)
-		    :*cons (or (:*cons other-specials)
-			       (:*cons specials))
-		    :*lay (or (:*lay other-specials)
-			      (:*lay specials))}
+                   (special/special-merge specials other-specials)
 		   #{}))) ; Applicants are rather meta-information, so
 			  ; they're not inherited.
   (applies-to? [this symbols]
