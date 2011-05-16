@@ -14,7 +14,8 @@
   ctor using optionally :*cons from style as parameters to create
   object. Then calls :*adder from parent-style or
   default-adder. Parent can be nil and then no adding happens. Returns
-  created object."  [ctor style parent parent-style]
+  created object."
+  [ctor style parent parent-style]
   (let [obj-specials (-> style props/get-value :specials)
 	obj (apply ctor (:*cons obj-specials))
         adder (or (-> parent-style :specials :*adder)
