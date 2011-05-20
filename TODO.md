@@ -1,5 +1,3 @@
-3.  Add support for matching by class in class selectors.
-
 4.  Swing: Create default style sheet
 
     - with specific adders for:
