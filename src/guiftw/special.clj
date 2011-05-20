@@ -13,3 +13,10 @@
   groups stored in there will be in final style."
   [specials other-specials]
   (merge (dissoc specials :*id :*groups) other-specials))
+
+(defn create [pairs]
+  (let [specials (into {} (map (fn [[p v]] [(keyword p) v]) pairs))
+        class (:*class specials)]
+    (if class
+      (merge-with #(vec (concat %1 %2)) {:*groups [(:*class specials)]} specials)
+      specials)))

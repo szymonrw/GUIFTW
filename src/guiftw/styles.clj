@@ -66,8 +66,8 @@
 			     properties))
 		(list ~@(map (fn [p] `(events/event-handler ~@p))
 			     events))
-		~(into {} (map (fn [[p v]] `[~(keyword p) ~v]) specials))
-		'~(set applicants)))))
+		~(special/create specials)
+		~(set applicants)))))
 
 (defmacro stylesheet
   "Takes any amount of pairs of list of identifiers and list of

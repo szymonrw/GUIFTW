@@ -123,9 +123,11 @@
   Use any of concrete implementations like guiftw.swing/swing or
   guiftw.swt/swt instead of this."
   [instantiator struct]
-  (let [constructor `(constructor ~(first struct))
+  (let [class (first struct)
+        constructor `(constructor ~class)
 	has-props (styles/style-spec? (second struct))
-	props `(styles/style ~(if has-props (second struct) []))
+	props `(styles/style ~(concat (if has-props (concat (second struct)))
+                                      [:*class class]))
 	children (if has-props
 		   (rest (rest struct))
 		   (rest struct))

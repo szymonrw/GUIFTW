@@ -5,25 +5,32 @@
                         JTabbedPane JScrollPane
                         JSplitPane)))
 
+(def adders
+  (stylesheet
+   [JTabbedPane] [:*adder (fn [parent parent-style child child-style]
+                            (let [specials (-> child-style :specials)]
+                              (.addTab parent
+                                       (:*tab-title specials)
+                                       (:*tab-icon specials)
+                                       child
+                                       (:*tab-tip specials))))]
+   [JScrollPane] [:*adder (fn [parent parent-style child child-style]
+                            (.setViewportView parent child))]))
+
 (def window
   (swing [JFrame [:*id :main-window
                   :title "Custom Adders Demo"
                   :size ^unroll (500 400)
                   :visible true]
           [JSplitPane [:resize-weight 0.5]
-           [JTabbedPane [:*lay JSplitPane/LEFT
-                         :*adder (fn [parent parent-style child child-style]
-                                   (.addTab parent
-                                            (-> child-style :specials :*tab-title)
-                                            child))]
+           [JTabbedPane [:*lay JSplitPane/LEFT]
             [JButton [:*tab-title "Tab title FTW!"
+                      :*tab-tip "Don't touch!"
                       :text "This is a button."]]
             [JLabel [:*tab-title "Second TAB"
                      :text "YEAH!"]]]
            [JScrollPane [:*lay JSplitPane/RIGHT
-                         :*id :scroll
-                         :*adder (fn [parent parent-style child child-style]
-                                   (.setViewportView parent child))]
+                         :*id :scroll]
             [JLabel [:text (str "<html><pre>"
                                 (->> "Veeeeeeeery Looooooong Teeeeext"
                                      (interleave (repeat "\n   "))
@@ -31,4 +38,6 @@
                                 "</pre></html>")]]]]]))
 
 (defn -main [& args]
-  (-> @(window) :root .validate))
+  (let [state (window adders)]
+    (-> @state :root .validate)
+    state))
