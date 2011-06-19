@@ -4,4 +4,5 @@
                  [org.clojure/clojure-contrib "1.2.0"]]
   :aot [#"guiftw\.*"]
   :dev-dependencies [[swank-clojure "1.3.0"]
-		     [org.eclipse/swt-win32-win32-x86_64 "3.5.2"]])
+		     [org.eclipse/swt-win32-win32-x86_64 "3.5.2"]
+                     [marginalia "0.5.1"]])
