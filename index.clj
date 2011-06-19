@@ -9,6 +9,10 @@
    :name "guiftw.examples.swing.basic",
    :doc nil}
   {:source-url nil,
+   :wiki-url "guiftw.examples.swing.custom-adders-api.html",
+   :name "guiftw.examples.swing.custom-adders",
+   :doc nil}
+  {:source-url nil,
    :wiki-url "guiftw.examples.swt.basic-api.html",
    :name "guiftw.examples.swt.basic",
    :doc nil}
@@ -131,7 +135,28 @@
    "Generate setter method name for key. Accepts strings, keywords\nand symbols.\n\nNotation :nice-property is translated to NiceProperty (CamelCase).",
    :var-type "function",
    :line 9,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\props.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\props.clj"}
+  {:arglists ([specials other-specials]),
+   :name "special-merge",
+   :namespace "guiftw.special",
+   :source-url nil,
+   :raw-source-url nil,
+   :wiki-url "/guiftw.special-api.html#guiftw.special/special-merge",
+   :doc
+   "Inherit id and groups only from the other one.\nBecause when reducing styles, the last one will\nbe always private object's style, only id and\ngroups stored in there will be in final style.",
+   :var-type "function",
+   :line 9,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\special.clj"}
+  {:arglists ([spec]),
+   :name "special-spec?",
+   :namespace "guiftw.special",
+   :source-url nil,
+   :raw-source-url nil,
+   :wiki-url "/guiftw.special-api.html#guiftw.special/special-spec?",
+   :doc "Returns :special if spec is of an special property.",
+   :var-type "function",
+   :line 3,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\special.clj"}
   {:raw-source-url nil,
    :source-url nil,
    :wiki-url "/guiftw.styles-api.html#guiftw.styles/CascadeSheet",
@@ -168,8 +193,19 @@
    :doc
    "Takes any amount of pairs of list of identifiers and list of\nproperties. List of identifiers can contain unique object ids (as\nin :*id) and group ids (as in :*groups). Following list of\nproperties will be applied to objects that matches these\nindetifiers. Returns list of Style objects that corresponds to these\npairs of lists.\n\nList of properties contain pairs of property name and\nvalue. Property names maps directly to JavaBeans property\nnames (setters). For example :text \"ASDF\" will map to\nsetText(\"ASDF\"). Properties will applied on objects in order\nthey're given. Property names can be of String, keyword or symbol\ntype but keyword type is recommended.\n\nStyle sheets can contain event handlers where property name is\n<listener-name-without-\"Listener\">+<method-name> of Listener that\ncorresonds to the event you wan to handle. Example:\nmouse+mouse-clicked will correspond to MouseListener, method\nmouseClicked. Also short-hand for double prefix is ++. You can write\nmouse++clicked and it'll translate to same thing. Value for event\nhandlers is an function that takes two arguments: GUI state (an atom\nas described in guiftw.tree doc) and event object.\n\nToolkits (such as Swing) can impose some additional properties (not\ntranslated to setters but used in other places). All extra\nproperties begin with * (asterisk).\n\nlispy-notation is translated to CamelCase, for\nexample :default-close-operation -> setDefaultCloseOperation.\nCamelCase is left as-is.\n\nFor setters that takes more than one argument you can tag value with\n^unroll. Then :size ^unroll (300 200) will translate to setSize(300,\n200) instead of setSize((300 200)).",
    :var-type "macro",
-   :line 81,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\styles.clj"}
+   :line 72,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\styles.clj"}
+  {:arglists ([parent parent-style child child-style]),
+   :name "default-adder",
+   :namespace "guiftw.swing",
+   :source-url nil,
+   :raw-source-url nil,
+   :wiki-url "/guiftw.swing-api.html#guiftw.swing/default-adder",
+   :doc
+   "Default \"adder\" for Swing. It can be overridden by :*adder\nspecial property. Honors :*lay special property to use as layout\nconstraint.",
+   :var-type "function",
+   :line 7,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swing.clj"}
   {:arglists ([]),
    :name "lafs",
    :namespace "guiftw.swing",
@@ -178,8 +214,8 @@
    :wiki-url "/guiftw.swing-api.html#guiftw.swing/lafs",
    :doc "Get available look-and-feel names.",
    :var-type "function",
-   :line 42,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swing.clj"}
+   :line 72,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swing.clj"}
   {:arglists ([laf]),
    :name "set-laf",
    :namespace "guiftw.swing",
@@ -189,8 +225,8 @@
    :doc
    "Set look-and-feel by name. Throws exception if can't find laf.",
    :var-type "function",
-   :line 33,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swing.clj"}
+   :line 63,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swing.clj"}
   {:arglists ([struct]),
    :name "swing",
    :namespace "guiftw.swing",
@@ -200,19 +236,29 @@
    :doc
    "Parses GUI tree (struct) and return a function that creates GUI\ndescribed by struct. For syntax of struct look into guiftw.tree\ndoc.\n\nUses *lay extra property to specify layout constraints (used when\nadding object to container) and *cons special property where the\nvalue is list of constructor parameters.",
    :var-type "macro",
-   :line 21,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swing.clj"}
-  {:arglists ([ctor parent style]),
+   :line 51,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swing.clj"}
+  {:arglists ([ctor style parent parent-style]),
    :name "swing-create",
    :namespace "guiftw.swing",
    :source-url nil,
    :raw-source-url nil,
    :wiki-url "/guiftw.swing-api.html#guiftw.swing/swing-create",
    :doc
-   "Function that instantiates object in Swing-specific manner. Calls\nctor using optionally :*cons from style as parameters to create\nobject. Then calls parent.add(object) or parent.add(object,\nlayout_constraints) if :*lay is present in style. Parent can be nil\nand then no adding happens. Returns created object.",
+   "Function that instantiates object in Swing-specific manner. Calls\nctor using optionally :*cons from style as parameters to create\nobject. Then calls :*adder from parent-style or\ndefault-adder. Parent can be nil and then no adding happens. Returns\ncreated object.",
    :var-type "function",
-   :line 7,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swing.clj"}
+   :line 37,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swing.clj"}
+  {:raw-source-url nil,
+   :source-url nil,
+   :wiki-url "/guiftw.swing-api.html#guiftw.swing/swing-quirks",
+   :namespace "guiftw.swing",
+   :line 16,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swing.clj",
+   :var-type "var",
+   :doc
+   "Quirks for Swing's JTabbedPane and JScrollPane in form of style sheet.\n\nJTabbedPane: adds children using addTab method. Honors special\nproperties :*tab-title, :*tab-icon and :*tab-tip.\n\nJScrollPane: adds child using setViewportView method. Only one\nchild (last) will be visible in effect.",
+   :name "swing-quirks"}
   {:arglists ([f & args]),
    :name "async-exec",
    :namespace "guiftw.swt",
@@ -223,7 +269,7 @@
    "Put asynchronously function to evaluate in SWT in near future.",
    :var-type "function",
    :line 56,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swt.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swt.clj"}
   {:arglists ([]),
    :name "default-display",
    :namespace "guiftw.swt",
@@ -233,7 +279,7 @@
    :doc "Get default display",
    :var-type "function",
    :line 29,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swt.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swt.clj"}
   {:arglists ([title body]),
    :name "message",
    :namespace "guiftw.swt",
@@ -243,7 +289,7 @@
    :doc "Create standard SWT message box.",
    :var-type "function",
    :line 64,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swt.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swt.clj"}
   {:arglists ([w]),
    :name "ok?",
    :namespace "guiftw.swt",
@@ -253,7 +299,7 @@
    :doc "Check if w is not null and not disposed.",
    :var-type "function",
    :line 24,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swt.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swt.clj"}
   {:arglists ([struct]),
    :name "swt",
    :namespace "guiftw.swt",
@@ -264,8 +310,8 @@
    "Parses GUI tree (struct) and return a function that creates GUI\ndescribed by struct. For syntax of struct look into guiftw.tree\ndoc.\n\nUses *cons special property which value is a list of constructor\nparameters without first one (the parent), which is added\nautomatically.",
    :var-type "macro",
    :line 13,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swt.clj"}
-  {:arglists ([ctor parent style]),
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swt.clj"}
+  {:arglists ([ctor style parent parent-style]),
    :name "swt-create",
    :namespace "guiftw.swt",
    :source-url nil,
@@ -274,7 +320,7 @@
    :doc "Instantiates object in SWT-specific manner.",
    :var-type "function",
    :line 8,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swt.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swt.clj"}
   {:arglists ([shell] []),
    :name "swt-loop",
    :namespace "guiftw.swt",
@@ -285,7 +331,7 @@
    "Loop that dispatches SWT events. Catches all exceptions and simply\nprints stack traces.",
    :var-type "function",
    :line 34,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swt.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swt.clj"}
   {:arglists ([]),
    :name "swt-thread",
    :namespace "guiftw.swt",
@@ -296,7 +342,7 @@
    "Start SWT loop in background. Should be first thing to invoke when\ninteracting with SWT in REPL to avoid wrong thread access\nexceptions.",
    :var-type "function",
    :line 49,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\swt.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swt.clj"}
   {:arglists ([class]),
    :name "constructor",
    :namespace "guiftw.tree",
@@ -307,7 +353,7 @@
    "Returns multi-variant function that reflects all constructors for\ngiven class.",
    :var-type "macro",
    :line 34,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\tree.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\tree.clj"}
   {:arglists ([instantiator constructor style children]),
    :name "gui-creator",
    :namespace "guiftw.tree",
@@ -317,8 +363,8 @@
    :doc
    "Logic behind creating GUI. It's what parse-gui will return and it's\nnot intended to be used outside of it.\n\nInstantiator have to be 3-arg fn that will construct object using\nconstructor and add it to a parent using evetually properties of an\nobject (especially *cons -- constructor parameters -- and *lay --\nlayout parameters).",
    :var-type "function",
-   :line 72,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\tree.clj"}
+   :line 73,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\tree.clj"}
   {:arglists ([args]),
    :name "gui-creator-args-dispatch",
    :namespace "guiftw.tree",
@@ -330,7 +376,7 @@
    "Helper function for gui-creator. Dispatches args to map with keys:\n:stylesheets -- all stylesheets concatenated\n:gui -- state\n:parent -- component where widgets will be added.",
    :var-type "function",
    :line 58,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\tree.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\tree.clj"}
   {:arglists ([old new]),
    :name "merge-guis",
    :namespace "guiftw.tree",
@@ -341,7 +387,7 @@
    "Merges two GUI states (maps). Keys :ids, :groups and :root are\ntreated differently: :ids are merged, all values inside :groups are\nconcatenated and :root is preserved from old map.\n\nAll other keys are merged like in merge function.",
    :var-type "function",
    :line 45,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\tree.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\tree.clj"}
   {:arglists ([instantiator struct]),
    :name "parse-gui",
    :namespace "guiftw.tree",
@@ -351,8 +397,8 @@
    :doc
    "Parses GUI tree (struct) at compile time. Parsing is as abstract as\npossible, given instantiator function is concrete implementation of\ncreating object and adding it as an child to it's parent.\n\nInstantiator function takes three arguments: a constructor\nfunction (generated multi-variant fn that represents all possible\nconstructors for class at in this node), parent object (nil is\npossible) and style for object that will be created.\n\nReturns a function that takes zero or more arguments: gui state,\nparent object (place where widgets will be added) and any amount of\nstyle sheets that will be applied to created objects. All parameters\nare optional. Created function will return modified gui state or\nnewly created if gui arg is nil. If you pass a map wrapped in an\natom with some custom keys (:ids, :groups and :root are reserved)\nthey will be preserved so you can put there your custom application\nstate.\n\nUse any of concrete implementations like guiftw.swing/swing or\nguiftw.swt/swt instead of this.",
    :var-type "macro",
-   :line 103,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\tree.clj"}
+   :line 104,
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\tree.clj"}
   {:arglists ([s]),
    :name "CamelCase",
    :namespace "guiftw.utils",
@@ -363,7 +409,7 @@
    "Like camelCase-small but first letter is always uppercase (traditional\nway of naming classes in Java).",
    :var-type "function",
    :line 10,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\utils.clj"}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\utils.clj"}
   {:arglists ([s]),
    :name "camelCase-small",
    :namespace "guiftw.utils",
@@ -374,4 +420,4 @@
    "Translates a string in a form of \"nice-property\" to\nniceProperty (traditionally used in Java for method names).",
    :var-type "function",
    :line 4,
-   :file "d:\\Projekty\\guiftw\\autodoc\\..\\src\\guiftw\\utils.clj"})}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\utils.clj"})}
