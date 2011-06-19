@@ -23,10 +23,12 @@
 8.  TREE: Add support for composing gui structures of smaller ones. e.g. to
     write
 
+    ```clj
     (let [a (swing [JButton])
           b (swing [JButton])]
      (swing [JFrame [] a b]))
+    ```
 
 9.  Swing, SWT: Add canvas creator for custom-painted widgets.
 
-    usage like: (canvas (fn [this g] (.paintSmth g)))
+    usage like: `(canvas (fn [this g] (.paintSmth g)))`
