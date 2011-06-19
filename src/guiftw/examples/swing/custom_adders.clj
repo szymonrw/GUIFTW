@@ -5,6 +5,7 @@
                         JTabbedPane JScrollPane
                         JSplitPane)))
 
+;; This implementation is copied to guiftw.swing as swing-quirks.
 (def adders
   (stylesheet
    [JTabbedPane] [:*adder (fn [parent parent-style child child-style]

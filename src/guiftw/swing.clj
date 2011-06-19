@@ -1,13 +1,38 @@
 (ns guiftw.swing
   "Functions for Happy Swing User."
   (:require (guiftw [tree :as tree]
-		    [props :as props])))
+		    [props :as props]
+                    [styles :as styles])))
 
 (defn default-adder
+  "Default \"adder\" for Swing. It can be overridden by :*adder
+  special property. Honors :*lay special property to use as layout
+  constraint."
   [parent parent-style child child-style]
   (let [layout-data (-> child-style :specials :*lay)]
     (cond (and parent layout-data) (.add parent child layout-data)
 	  parent                   (.add parent child))))
+
+(def ^{:doc "Quirks for Swing's JTabbedPane and JScrollPane in form of style sheet.
+
+  JTabbedPane: adds children using addTab method. Honors special
+  properties :*tab-title, :*tab-icon and :*tab-tip.
+
+  JScrollPane: adds child using setViewportView method. Only one
+  child (last) will be visible in effect."}
+  swing-quirks
+  (styles/stylesheet
+   [javax.swing.JTabbedPane]
+   [:*adder (fn [parent parent-style child child-style]
+                            (let [specials (-> child-style :specials)]
+                              (.addTab parent
+                                       (:*tab-title specials)
+                                       (:*tab-icon specials)
+                                       child
+                                       (:*tab-tip specials))))]
+   [javax.swing.JScrollPane]
+   [:*adder (fn [parent parent-style child child-style]
+                            (.setViewportView parent child))]))
 
 (defn swing-create
   "Function that instantiates object in Swing-specific manner. Calls

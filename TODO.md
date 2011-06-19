@@ -1,16 +1,4 @@
-4.  Swing: Create default style sheet
-
-    - with specific adders for:
-
-        1.  JTabbedPane -- invoke `addTab` instead `add` (+ the
-            *tab-icon and *tab-title props -- think of a better names)
-
-        2.  JScrolledPane -- invoke setViewportView (confirm the
-            method)
-
-     - any additional quirks?
-
-5.  Consider using this "default" style sheet by default.
+5.  Consider using this guiftw.swing/swing-quirks style sheet by default.
 
 6.  Add function helpers for more convenient selecting objects at
     runtime. Like getting children of some object and selecting only
