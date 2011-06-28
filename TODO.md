@@ -28,7 +28,3 @@
           b (swing [JButton])]
      (swing [JFrame [] a b]))
     ```
-
-9.  Swing, SWT: Add canvas creator for custom-painted widgets.
-
-    usage like: `(canvas (fn [this g] (.paintSmth g)))`
