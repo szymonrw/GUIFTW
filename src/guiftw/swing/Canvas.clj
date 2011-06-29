@@ -20,25 +20,40 @@
 (defn event-getGraphics [this]
   (.graphics this))
 
-;; Interface for capturing CanvasEvents:
+;; Interface for capturing CanvasEvents. Implement paint method in
+;; order to draw.
 (gen-interface :name guiftw.swing.CanvasListener
                :extends [java.util.EventListener]
                :methods [[paint [guiftw.swing.CanvasEvent] Object]])
 
-;; Canvas class
-;;
-;; Usage:
-;; (swing [Canvas [:canvas+paint (fn [state event]
-;;                                 (.drawSmth (.getGraphics event)))]])
-(gen-class :name guiftw.swing.Canvas
-           :extends javax.swing.JPanel
-           :main false
-           :prefix canvas-
-           :init init
-           :state painters
-           :methods [[addCanvasListener [guiftw.swing.CanvasListener] Object]
-                     [removeCanvasListener [guiftw.swing.CanvasListener] Object]
-                     [getCanvasListeners [] clojure.lang.PersistentVector]])
+(defmacro gen-canvas
+  "Generate a class that handles drawing using a list of
+  CanvasListeners. Overwrites paintComponent method and adds these
+  methods:
+  - addCanvasListener(CanvasListener listener)
+  - removeCanvasListener(CanvasListener listener)
+  - getCanvasListeners()
+
+  Usage of such new class will be like:
+
+  (swing [ClassName [:canvas+paint (fn [state event]
+                                  (.drawSmth (.getGraphics event)))]])
+
+  Notes:
+  1. new-class must be fully-qualified.
+  2. Works only during compilation (like gen-class)."
+  [superclass new-class]
+  `(gen-class :name ~new-class
+              :extends ~superclass
+              :main false
+              :prefix ~'canvas-
+              :init ~'init
+              :state ~'painters
+              :methods [[~'addCanvasListener [guiftw.swing.CanvasListener] Object]
+                        [~'removeCanvasListener [guiftw.swing.CanvasListener] Object]
+                        [~'getCanvasListeners [] clojure.lang.PersistentVector]]))
+
+(gen-canvas javax.swing.JPanel guiftw.swing.Canvas)
 
 (defn canvas-init [& args]
   [args (atom [])])
