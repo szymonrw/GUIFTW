@@ -1,4 +1,4 @@
-(ns guiftw.swing.Canvas)
+(ns guiftw.swing.canvas)
 
 ;; Class that represents canvas' drawing event
 ;;
