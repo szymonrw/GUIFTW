@@ -35,16 +35,20 @@
 
 (defmacro gen-canvas
   "Generate a class that handles drawing using a list of
-  CanvasListeners. Overwrites paintComponent method and adds these
-  methods:
-  - addCanvasListener(CanvasListener listener)
-  - removeCanvasListener(CanvasListener listener)
-  - getCanvasListeners()
+  CanvasListeners. What it does:
+  - overwrites paintComponent method,
+  - exposes superclass' paintComponent as paintSuper,
+  - adds methods:
+    - addCanvasListener(CanvasListener listener),
+    - removeCanvasListener(CanvasListener listener),
+    - getCanvasListeners().
+
+  Also exposes superclass' paintComponent
 
   Usage of such new class will be like:
 
   (swing [ClassName [:canvas+paint (fn [state event]
-                                  (.drawSmth (.getGraphics event)))]])
+                                     (.drawSmth (.getGraphics event)))]])
 
   Notes:
   1. new-class must be fully-qualified.
@@ -58,7 +62,8 @@
               :state ~'painters
               :methods [[~'addCanvasListener [guiftw.swing.CanvasListener] Object]
                         [~'removeCanvasListener [guiftw.swing.CanvasListener] Object]
-                        [~'getCanvasListeners [] clojure.lang.PersistentVector]]))
+                        [~'getCanvasListeners [] clojure.lang.PersistentVector]]
+              :exposes-methods {~'paintComponent ~'paintSuper}))
 
 ;; General purpose Canvas class with JPanel as superclass.
 (gen-canvas javax.swing.JPanel guiftw.swing.Canvas)
