@@ -1,4 +1,11 @@
-(ns guiftw.swing.canvas)
+(ns guiftw.swing.canvas
+  "Contains gen-canvas macro that can make paintable canvas from any
+  class. One class (Canvas) is generated for general use.
+
+  When compiling, generates CanvasEvent class (with getGraphics method
+  to get Graphics object) representing painting event and
+  CanvasListener interface with paint method to implement in order to
+  do drawing.")
 
 ;; Class that represents canvas' drawing event
 ;;
@@ -53,6 +60,7 @@
                         [~'removeCanvasListener [guiftw.swing.CanvasListener] Object]
                         [~'getCanvasListeners [] clojure.lang.PersistentVector]]))
 
+;; General purpose Canvas class with JPanel as superclass.
 (gen-canvas javax.swing.JPanel guiftw.swing.Canvas)
 
 (defn canvas-init [& args]
