@@ -36,7 +36,7 @@
 (defmacro gen-canvas
   "Generate a class that handles drawing using a list of
   CanvasListeners. What it does:
-  - overwrites paintComponent method,
+  - overrides paintComponent method,
   - exposes superclass' paintComponent as paintSuper,
   - adds methods:
     - addCanvasListener(CanvasListener listener),

@@ -28,3 +28,13 @@
           b (swing [JButton])]
      (swing [JFrame [] a b]))
     ```
+
+9.  Consider caching computed styles for objects.
+
+    It'll preserve style in a map in gui state so we could reuse it
+    later. Needed for custom adders (we need to know *adder property
+    of parent when creating children -- not possible atm).
+
+10. Throw meaningful exception when class is not found instead of
+    NullPointerException.
+
