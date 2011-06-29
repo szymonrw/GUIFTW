@@ -44,7 +44,12 @@
   {:source-url nil,
    :wiki-url "guiftw.utils-api.html",
    :name "guiftw.utils",
-   :doc nil}),
+   :doc nil}
+  {:source-url nil,
+   :wiki-url "guiftw.swing.canvas-api.html",
+   :name "guiftw.swing.canvas",
+   :doc
+   "Contains gen-canvas macro that can make paintable canvas from any\nclass. One class (Canvas) is generated for general use.\n\nWhen compiling, generates CanvasEvent class (with getGraphics method\nto get Graphics object) representing painting event and\nCanvasListener interface with paint method to implement in order to\ndo drawing."}),
  :vars
  ({:arglists ([spec listener-creator]),
    :name "adder",
@@ -420,4 +425,16 @@
    "Translates a string in a form of \"nice-property\" to\nniceProperty (traditionally used in Java for method names).",
    :var-type "function",
    :line 4,
-   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\utils.clj"})}
+   :file "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\utils.clj"}
+  {:arglists ([superclass new-class]),
+   :name "gen-canvas",
+   :namespace "guiftw.swing.canvas",
+   :source-url nil,
+   :raw-source-url nil,
+   :wiki-url "/guiftw.swing-api.html#guiftw.swing.canvas/gen-canvas",
+   :doc
+   "Generate a class that handles drawing using a list of\nCanvasListeners. Overwrites paintComponent method and adds these\nmethods:\n- addCanvasListener(CanvasListener listener)\n- removeCanvasListener(CanvasListener listener)\n- getCanvasListeners()\n\nUsage of such new class will be like:\n\n(swing [ClassName [:canvas+paint (fn [state event]\n                                (.drawSmth (.getGraphics event)))]])\n\nNotes:\n1. new-class must be fully-qualified.\n2. Works only during compilation (like gen-class).",
+   :var-type "macro",
+   :line 36,
+   :file
+   "d:\\Projekty\\GUIFTW\\autodoc\\..\\src\\guiftw\\swing\\canvas.clj"})}

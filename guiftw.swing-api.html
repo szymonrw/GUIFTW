@@ -63,6 +63,12 @@ namespace.
       <a href="#guiftw.swing/swing-quirks">swing-quirks</a>
     </div>
     <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#guiftw.swing.canvas">guiftw.swing.canvas</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a href="#guiftw.swing.canvas/gen-canvas">gen-canvas</a>
+    </div>
+    <br />
   </div>
 </div>
 </div>
@@ -158,6 +164,42 @@ properties :*tab-title, :*tab-icon and :*tab-tip.
 
 JScrollPane: adds child using setViewportView method. Only one
 child (last) will be visible in effect.</pre>
+  
+  
+  
+</div>
+<h2 id="namespace-name">guiftw.swing.canvas</h2>
+<pre id="namespace-docstr">Contains gen-canvas macro that can make paintable canvas from any
+class. One class (Canvas) is generated for general use.
+
+When compiling, generates CanvasEvent class (with getGraphics method
+to get Graphics object) representing painting event and
+CanvasListener interface with paint method to implement in order to
+do drawing.</pre>
+
+
+<br />
+<div id="var-entry">
+  <hr />
+  <h2 id="guiftw.swing.canvas/gen-canvas">gen-canvas</h2>
+  <span id="var-type">macro</span><br />
+  <pre id="var-usage">Usage: (gen-canvas superclass new-class)
+</pre>
+  <pre id="var-docstr">Generate a class that handles drawing using a list of
+CanvasListeners. Overwrites paintComponent method and adds these
+methods:
+- addCanvasListener(CanvasListener listener)
+- removeCanvasListener(CanvasListener listener)
+- getCanvasListeners()
+
+Usage of such new class will be like:
+
+(swing [ClassName [:canvas+paint (fn [state event]
+                                (.drawSmth (.getGraphics event)))]])
+
+Notes:
+1. new-class must be fully-qualified.
+2. Works only during compilation (like gen-class).</pre>
   
   
   
