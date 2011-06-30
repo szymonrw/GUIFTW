@@ -35,6 +35,8 @@
   "Returns multi-variant function that reflects all constructors for
   given class."
   [class]
+  (if-not (resolve class)
+    (throw (ClassNotFoundException. (name class))))
   `(fn ~@(map (fn [c]
 		(let [syms (repeatedly c gensym)]
 		  (list (vec syms) (cons (symbol (str (.getName class) "."))
