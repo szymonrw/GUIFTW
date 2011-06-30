@@ -133,5 +133,7 @@
 	children (if has-props
 		   (rest (rest struct))
 		   (rest struct))
-	children-guis (for [x children] `(parse-gui ~instantiator ~x))]
+	children-guis (for [x children] (if (vector? x)
+                                          `(parse-gui ~instantiator ~x)
+                                          x))]
     `(gui-creator ~instantiator ~constructor ~props (list ~@children-guis))))
