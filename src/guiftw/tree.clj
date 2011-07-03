@@ -106,7 +106,7 @@
 (defmacro parse-gui
   "Parses GUI tree (struct) at compile time. Parsing is as abstract as
   possible, given instantiator function is concrete implementation of
-  creating object and adding it as an child to it's parent.
+  creating object and adding it as a child to it's parent.
 
   Instantiator function takes three arguments: a constructor
   function (generated multi-variant fn that represents all possible

@@ -1,5 +1,8 @@
 5.  Consider using this guiftw.swing/swing-quirks style sheet by default.
 
+    Add support for toolkit-defined default stylesheet. (in parse-gui
+    probably).
+
 6.  Add function helpers for more convenient selecting objects at
     runtime. Like getting children of some object and selecting only
     those who belong to some group. (think of more)
@@ -27,3 +30,6 @@
     of parent when creating children -- not possible atm).
 
 9.  Make easy to write components ('gui-creator'-like fns)
+
+10. Detect if child is a seq (at runtime, in gui-creator) and,
+    eventually "add" all elements from it.
