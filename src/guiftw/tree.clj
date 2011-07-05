@@ -100,7 +100,8 @@
 	    root {:root obj}
 	    gui-news (merge id groups root)]
 	(swap! gui merge-guis gui-news)
-	(dorun (map #(% gui obj final-style stylesheets) children)))
+	(dorun (map #(% gui obj final-style stylesheets)
+                    (flatten children))))
       gui)))
 
 (defmacro parse-gui
