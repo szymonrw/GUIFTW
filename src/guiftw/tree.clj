@@ -65,11 +65,11 @@
   [args]
   (apply merge-with concat
          (map (fn [x] {(cond (nil? x) nil
-                            (sequential? x) :stylesheets
-                            (instance? clojure.lang.IDeref x) :gui
-                            (instance? guiftw.props.Property x) :parent-style
-                            :else :parent)
-                      x})
+                             (sequential? x) :stylesheets
+                             (instance? clojure.lang.IDeref x) :gui
+                             (instance? guiftw.props.Property x) :parent-style
+                             :else :parent)
+                       x})
               args)))
 
 (defn gui-creator
