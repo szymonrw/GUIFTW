@@ -3,7 +3,7 @@
   handlers code."
   (:require (guiftw [props :as props]
 		    [utils :as utils])
-	    (clojure.contrib [string :as string])))
+	    (clojure [string :as string])))
 
 (defrecord EventHandler [spec handler listener f]
   props/Property
@@ -35,7 +35,7 @@
   [spec]
   {:pre [(event-spec? spec)]}
 
-  (let [[listener method method2] (->> spec name (reduce str) (string/split #"\+"))]
+  (let [[listener method method2] (-> spec name (string/split #"\+"))]
     [(-> listener utils/CamelCase (str "Listener"))
      (-> (if method2 (str listener "-" method2) method)
 	 utils/camelCase-small)]))
