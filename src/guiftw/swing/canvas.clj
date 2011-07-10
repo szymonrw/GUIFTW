@@ -57,6 +57,7 @@
   `(gen-class :name ~new-class
               :extends ~superclass
               :main false
+              :in-ns guiftw.swing.canvas
               :prefix ~'canvas-
               :init ~'init
               :state ~'painters
